@@ -18,6 +18,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
@@ -39,6 +42,24 @@ public class Main extends Application
 			"Miscellaneous Fund"};
 
 		TableView tblView = new TableView();
+		MenuBar mmMenuBar = new MenuBar();
+		
+		Menu mmFileMenu, mmEditMenu, mmHelpMenu;
+		mmFileMenu = new Menu();
+		mmEditMenu = new Menu();
+		mmHelpMenu = new Menu();
+		
+		//For File Menu
+		MenuItem saveToDatabase = new MenuItem();
+		MenuItem closeApplication = new MenuItem();
+		
+		//For Edit Menu
+		MenuItem addPayCheck = new MenuItem();
+		MenuItem manualMoneyTransfers = new MenuItem();
+		MenuItem changePercentages = new MenuItem();
+
+		//For Help Menu
+		MenuItem aboutApplication = new MenuItem();
 
 		ComboBox cmb = new ComboBox();
 		cmb.getItems().addAll(accounts);
@@ -46,6 +67,7 @@ public class Main extends Application
 		Button pullUpAccounts = new Button();
 
 		BorderPane bp = new BorderPane();
+		bp.setTop(mmMenuBar);
 		bp.setBottom(tblView);
 		bp.setCenter(cmb);
 
