@@ -18,12 +18,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
 
 
 public class Main extends Application
@@ -36,45 +30,28 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
+		MoneyManagerControls controls = new MoneyManagerControls();
+
 		String[] accounts = {"iPhone Fund", "Personal Emergency Fund",
 			"Family Emergency Fund", "Car Fund", "Investing Fund",
-			"Clothing Fund", "Supplement Fund", "Running Fund",
+			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
 			"Miscellaneous Fund"};
 
-		TableView tblView = new TableView();
-		MenuBar mmMenuBar = new MenuBar();
-		
-		Menu mmFileMenu, mmEditMenu, mmHelpMenu;
-		mmFileMenu = new Menu();
-		mmEditMenu = new Menu();
-		mmHelpMenu = new Menu();
-		
-		//For File Menu
-		MenuItem saveToDatabase = new MenuItem();
-		MenuItem closeApplication = new MenuItem();
-		
-		//For Edit Menu
-		MenuItem addPayCheck = new MenuItem();
-		MenuItem manualMoneyTransfers = new MenuItem();
-		MenuItem changePercentages = new MenuItem();
-
-		//For Help Menu
-		MenuItem aboutApplication = new MenuItem();
-
-		ComboBox cmb = new ComboBox();
-		cmb.getItems().addAll(accounts);
-
-		Button pullUpAccounts = new Button();
-
 		BorderPane bp = new BorderPane();
-		bp.setTop(mmMenuBar);
-		bp.setBottom(tblView);
-		bp.setCenter(cmb);
+		bp.setTop(controls.returnmmMenuBar());
+		bp.setBottom(controls.returnMoneyStuff());
+
 
 		Scene scn = new Scene(bp);
 
-		primaryStage.setHeight(900);
-		primaryStage.setWidth(800);
+		/* Switched from the setHeight and setWidth
+		 * methods to the minimum and maximum
+		 * equivalents.
+		 */
+		primaryStage.setMinHeight(900);
+		primaryStage.setMaxHeight(900);
+		primaryStage.setMinWidth(800);
+		primaryStage.setMaxWidth(800);
 		primaryStage.setTitle("MM");
 		primaryStage.setScene(scn);
 		primaryStage.show();
