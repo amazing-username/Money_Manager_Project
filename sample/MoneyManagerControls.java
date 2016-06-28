@@ -27,11 +27,135 @@ public class MoneyManagerControls
             changePercentages, aboutApplication;
     private MenuBar mmMenuBar;
 
+    //Menu bar mutator
+    public void setmmMenuBar(MenuBar mmMenuBar)
+    {
+        this.mmMenuBar = mmMenuBar;
+    }
+    //Menu mutators
+    public void setmmFileMenu(Menu mmFileMenu)
+    {
+        this.mmFileMenu = mmFileMenu;
+    }
+    public void setmmEditMenu(Menu mmEditMenu)
+    {
+        this.mmEditMenu = mmEditMenu;
+    }
+    public void setmmHelpMenu(Menu mmHelpMenu)
+    {
+        this.mmHelpMenu = mmHelpMenu;
+    }
+    //Menu item mutators
+    public void setSaveToDatabase(MenuItem saveToDatabase)
+    {
+        this.saveToDatabase = saveToDatabase;
+    }
+    public void setCloseApplication(MenuItem closeApplication)
+    {
+        this.closeApplication = closeApplication;
+    }
+    public void setAddPaycheck(MenuItem addPaycheck)
+    {
+        this.addPaycheck = addPaycheck;
+    }
+    public void setManualMoneyTransfer(MenuItem manualMoneyTransfer)
+    {
+        this.manualMoneyTransfer = manualMoneyTransfer;
+    }
+    public void setChangePercentages(MenuItem changePercentages)
+    {
+        this.changePercentages = changePercentages;
+    }
+    public void setAboutApplication(MenuItem aboutApplication)
+    {
+        this.aboutApplication = aboutApplication;
+    }
 
+    //Menu bar accessor
+    public MenuBar getmmMenuBar()
+    {
+        //For File Menu
+        setmmFileMenu(new Menu("File"));
+        setSaveToDatabase(new MenuItem());
+        setCloseApplication(new MenuItem());
+        getSaveToDatabase().setText("save");
+        getCloseApplication().setText("close");
+        getCloseApplication().setOnAction(e ->
+        {
+            System.exit(0);
+        });
+        getmmFileMenu().getItems().addAll(getSaveToDatabase(), getCloseApplication());
+
+        //For Edit Menu
+        setmmEditMenu(new Menu("Edit"));
+        setAddPaycheck(new MenuItem());
+        setManualMoneyTransfer(new MenuItem());
+        setChangePercentages(new MenuItem());
+        getAddPaycheck().setText("add paycheck");
+        getManualMoneyTransfer().setText("transfer money");
+        getChangePercentages().setText("change percentages");
+        getChangePercentages().setOnAction( e ->
+        {
+            newWindowToChangePercentages();
+        });
+        getmmEditMenu().getItems().addAll(getAddPaycheck(), getManualMoneyTransfer(),
+                getChangePercentages());
+
+        //For Help Menu
+        setmmHelpMenu(new Menu("Help"));
+        setAboutApplication(new MenuItem());
+        getAboutApplication().setText("info");
+        getmmHelpMenu().getItems().add(getAboutApplication());
+
+        MenuBar bars = new MenuBar();
+        bars.getMenus().addAll(getmmFileMenu(), getmmEditMenu(), getmmHelpMenu());
+        setmmMenuBar(bars);
+
+        return mmMenuBar;
+        }
+    //Menu accessors
+    public Menu getmmFileMenu()
+    {
+        return mmFileMenu;
+    }
+    public Menu getmmEditMenu()
+    {
+        return mmEditMenu;
+    }
+    public Menu getmmHelpMenu()
+    {
+        return mmHelpMenu;
+    }
+    //Menu item accessors
+    public MenuItem getSaveToDatabase()
+    {
+        return saveToDatabase;
+    }
+    public MenuItem getCloseApplication()
+    {
+        return closeApplication;
+    }
+    public MenuItem getAddPaycheck()
+    {
+        return addPaycheck;
+    }
+    public MenuItem getManualMoneyTransfer()
+    {
+        return manualMoneyTransfer;
+    }
+    public MenuItem getChangePercentages()
+    {
+        return changePercentages;
+    }
+    public MenuItem getAboutApplication()
+    {
+       return aboutApplication;
+    }
+    /**
     public MenuBar returnmmMenuBar()
     {
         //For File Menu
-        mmFileMenu = new Menu("File");
+        setmmFileMenu(new Menu("File"));
         saveToDatabase = new MenuItem();
         closeApplication = new MenuItem();
         saveToDatabase.setText("save");
@@ -40,7 +164,7 @@ public class MoneyManagerControls
         {
             System.exit(0);
         });
-        mmFileMenu.getItems().addAll(saveToDatabase, closeApplication);
+        getmmFileMenu().getItems().addAll(saveToDatabase, closeApplication);
 
         //For Edit Menu
         mmEditMenu = new Menu("Edit");
@@ -63,11 +187,12 @@ public class MoneyManagerControls
         aboutApplication.setText("info");
         mmHelpMenu.getItems().add(aboutApplication);
 
-        mmMenuBar = new MenuBar();
-        mmMenuBar.getMenus().addAll(mmFileMenu, mmEditMenu, mmHelpMenu);
+        setmmMenuBar(new MenuBar());
+        mmMenuBar.getMenus().addAll(getmmFileMenu(), getmmEditMenu(), getmmHelpMenu());
 
         return mmMenuBar;
     }
+     */
     public void listCurrentPercentages(TextField iPhoneFundPercentage, TextField personalEmergencyFundPercentage,
                                        TextField familyEmergencyFundPercentage, TextField carFundPercentage,
            TextField investingFundPercentage, TextField clothingFundPercentage, TextField supplementFundPercentage,
@@ -84,6 +209,24 @@ public class MoneyManagerControls
         chessSetFundPercentage.setText("" + (percentageStorage.getChessSetFundPercentage() * 100));
         runningFundPercentage.setText("" + (percentageStorage.getRunningFundPercentage() * 100));
         miscellaneousFundPercentage.setText("" + (percentageStorage.getMiscellaneousFundPercentage() * 100));
+    }
+    public void setUpdatePercentages(TextField iPhoneFundPercentage, TextField personalEmergencyFundPercentage,
+                                     TextField familyEmergencyFundPercentage, TextField carFundPercentage,
+                                     TextField investingFundPercentage, TextField clothingFundPercentage,
+                                     TextField supplementFundPercentage, TextField chessSetFundPercentage,
+                                     TextField runningFundPercentage, TextField miscellaneousFundPercentage,
+                                     AccountPercentages percentagesStorage)
+    {
+        percentagesStorage.setiPhoneBatteryFundPercentage(stringToDouble(iPhoneFundPercentage.getText()));
+        percentagesStorage.setPersonalEmergencyFundPercentage(stringToDouble(personalEmergencyFundPercentage.getText()));
+        percentagesStorage.setFamilyEmergencyFundPercentage(stringToDouble(familyEmergencyFundPercentage.getText()));
+        percentagesStorage.setCarFundPercentage(stringToDouble(carFundPercentage.getText()));
+        percentagesStorage.setInvestingFundPercentage(stringToDouble(investingFundPercentage.getText()));
+        percentagesStorage.setClothingFundPercentage(stringToDouble(clothingFundPercentage.getText()));
+        percentagesStorage.setSupplementFundPercentage(stringToDouble(supplementFundPercentage.getText()));
+        percentagesStorage.setChessSetFundPercentage(stringToDouble(chessSetFundPercentage.getText()));
+        percentagesStorage.setRunningFundPercentage(stringToDouble(runningFundPercentage.getText()));
+        percentagesStorage.setMiscellaneousFundPercentage(stringToDouble(miscellaneousFundPercentage.getText()));
     }
     public void newWindowToChangePercentages() {
         Stage percentageStage = new Stage();
@@ -157,6 +300,13 @@ public class MoneyManagerControls
                     runningFundPercentageTextField, miscellaneousFundPercentageTextField, percentageStorage);
         });
         updatePercentages = new MenuItem("Update Percentages");
+        updatePercentages.setOnAction(e ->
+        {
+            setUpdatePercentages(iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
+                    familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
+                    clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
+                    runningFundPercentageTextField, miscellaneousFundPercentageTextField, percentageStorage);
+        });
         closePercentages = new MenuItem("Close Percentages Window");
         closePercentages.setOnAction(e ->
         {
@@ -178,9 +328,9 @@ public class MoneyManagerControls
         percentageBorderPane.setCenter(percentageTextFields);
         percentageBorderPane.setRight(percentageSign);
 
+
         Scene percentageScene = new Scene(percentageBorderPane);
 
-        //Stage percentageStage = new Stage();
         percentageStage.setMinHeight(400);
         percentageStage.setMinWidth(300);
         percentageStage.setScene(percentageScene);
@@ -197,5 +347,9 @@ public class MoneyManagerControls
         setMoneyStuff(ms);
 
         return moneyStuff;
+    }
+    public double stringToDouble(String percentageString)
+    {
+        return (Double.parseDouble(percentageString) / 100);
     }
 }

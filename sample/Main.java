@@ -38,7 +38,7 @@ public class Main extends Application
 			"Miscellaneous Fund"};
 
 		BorderPane bp = new BorderPane();
-		bp.setTop(controls.returnmmMenuBar());
+		bp.setTop(controls.getmmMenuBar());
 		bp.setBottom(controls.returnMoneyStuff());
 
 

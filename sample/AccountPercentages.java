@@ -22,6 +22,42 @@ public class AccountPercentages
     {
         this.iPhoneBatteryFundPercentage = percentage;
     }
+    public void setPersonalEmergencyFundPercentage(double percentage)
+    {
+        this.personalEmergencyFundPercentage = percentage;
+    }
+    public void setFamilyEmergencyFundPercentage(double percentage)
+    {
+        this.familyEmergencyFundPercentage = percentage;
+    }
+    public void setCarFundPercentage(double percentage)
+    {
+        this.carFundPercentage = percentage;
+    }
+    public void setInvestingFundPercentage(double percentage)
+    {
+        this.investingFundPercentage = percentage;
+    }
+    public void setClothingFundPercentage(double percentage)
+    {
+        this.clothingFundPercentage = percentage;
+    }
+    public void setSupplementFundPercentage(double percentage)
+    {
+        this.supplementFundPercentage = percentage;
+    }
+    public void setChessSetFundPercentage(double percentage)
+    {
+        this.chessSetFundPercentage = percentage;
+    }
+    public void setRunningFundPercentage(double percentage)
+    {
+        this.runningFundPercentage = percentage;
+    }
+    public void setMiscellaneousFundPercentage(double percentage)
+    {
+        this.miscellaneousFundPercentage = percentage;
+    }
 
 
     public double getiPhoneBatteryFundPercentage()
