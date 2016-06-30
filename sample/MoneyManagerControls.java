@@ -26,6 +26,14 @@ public class MoneyManagerControls
     private MenuItem saveToDatabase, closeApplication, addPaycheck, manualMoneyTransfer,
             changePercentages, aboutApplication;
     private MenuBar mmMenuBar;
+    private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
+    familyEmergencyFundPercentageLabel, carFundPercentageLabel, investingFundPercentageLabel,
+    clothingFundPercentageLabel, supplementFundPercentageLabel, chessSetFundPercentageLabel,
+    runningFundPercentageLabel, miscellaneousFundPercentageLabel;
+    private TextField iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
+    familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
+    clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
+    runningFundPercentageTextField, miscellaneousFundPercentageTextField;
 
     //Menu bar mutator
     public void setmmMenuBar(MenuBar mmMenuBar)
@@ -69,6 +77,88 @@ public class MoneyManagerControls
     public void setAboutApplication(MenuItem aboutApplication)
     {
         this.aboutApplication = aboutApplication;
+    }
+    //Label mutators
+    public void setiPhoneFundPercentageLabel(Label iPhoneFundPercentageLabel)
+    {
+        this.iPhoneFundPercentageLabel = iPhoneFundPercentageLabel;
+    }
+    public void setPersonalEmergencyFundPercentageLabel(Label personalEmergencyFundPercentageLabel)
+    {
+        this.personalEmergencyFundPercentageLabel = personalEmergencyFundPercentageLabel;
+    }
+    public void setFamilyEmergencyFundPercentageLabel(Label familyEmergencyFundPercentageLabel)
+    {
+        this.familyEmergencyFundPercentageLabel = familyEmergencyFundPercentageLabel;
+    }
+    public void setCarFundPercentageLabel(Label carFundPercentageLabel)
+    {
+        this.carFundPercentageLabel = carFundPercentageLabel;
+    }
+    public void setInvestingFundPercentageLabel(Label investingFundPercentageLabel)
+    {
+        this.investingFundPercentageLabel = investingFundPercentageLabel;
+    }
+    public void setClothingFundPercentageLabel(Label clothingFundPercentageLabel)
+    {
+        this.clothingFundPercentageLabel = clothingFundPercentageLabel;
+    }
+    public void setSupplementFundPercentageLabel(Label supplementFundPercentageLabel)
+    {
+        this.supplementFundPercentageLabel = supplementFundPercentageLabel;
+    }
+    public void setChessSetFundPercentageLabel(Label chessSetFundPercentageLabel)
+    {
+        this.chessSetFundPercentageLabel = chessSetFundPercentageLabel;
+    }
+    public void setRunningFundPercentageLabel(Label runningFundPercentageLabel)
+    {
+        this.runningFundPercentageLabel = runningFundPercentageLabel;
+    }
+    public void setMiscellaneousFundPercentageLabel(Label miscellaneousFundPercentageLabel)
+    {
+        this.miscellaneousFundPercentageLabel = miscellaneousFundPercentageLabel;
+    }
+    //Text Field mutators
+    public void setiPhoneFundPercentageTextField(TextField iPhoneFundPercentageTextField)
+    {
+        this.iPhoneFundPercentageTextField = iPhoneFundPercentageTextField;
+    }
+    public void setPersonalEmergencyFundPercentageTextField(TextField personalEmergencyFundPercentageTextField)
+    {
+        this.personalEmergencyFundPercentageTextField = personalEmergencyFundPercentageTextField;
+    }
+    public void setFamilyEmergencyFundPercentageTextField(TextField familyEmergencyFundPercentageTextField)
+    {
+        this.familyEmergencyFundPercentageTextField = familyEmergencyFundPercentageTextField;
+    }
+    public void setCarFundPercentageTextField(TextField carFundPercentageTextField)
+    {
+        this.carFundPercentageTextField = carFundPercentageTextField;
+    }
+    public void setInvestingFundPercentageTextField(TextField investingFundPercentageTextField)
+    {
+        this.investingFundPercentageTextField = investingFundPercentageTextField;
+    }
+    public void setClothingFundPercentageTextField(TextField clothingFundPercentageTextField)
+    {
+        this.clothingFundPercentageTextField = clothingFundPercentageTextField;
+    }
+    public void setSupplementFundPercentageTextField(TextField supplementFundPercentageTextField)
+    {
+        this.supplementFundPercentageTextField = supplementFundPercentageTextField;
+    }
+    public void setChessSetFundPercentageTextField(TextField chessSetFundPercentageTextField)
+    {
+        this.chessSetFundPercentageTextField = chessSetFundPercentageTextField;
+    }
+    public void setRunningFundPercentageTextField(TextField runningFundPercentageTextField)
+    {
+        this.runningFundPercentageTextField = runningFundPercentageTextField;
+    }
+    public void setMiscellaneousFundPercentageTextField(TextField miscellaneousFundPercentageTextField)
+    {
+        this.miscellaneousFundPercentageTextField = miscellaneousFundPercentageTextField;
     }
 
     //Menu bar accessor
@@ -151,6 +241,88 @@ public class MoneyManagerControls
     {
        return aboutApplication;
     }
+    //Label Accessors
+    public Label getiPhoneFundPercentageLabel()
+    {
+        return iPhoneFundPercentageLabel;
+    }
+    public Label getPersonalEmergencyFundPercentageLabel()
+    {
+        return personalEmergencyFundPercentageLabel;
+    }
+    public Label getFamilyEmergencyFundPercentageLabel()
+    {
+        return familyEmergencyFundPercentageLabel;
+    }
+    public Label getCarFundPercentageLabel()
+    {
+        return carFundPercentageLabel;
+    }
+    public Label getInvestingFundPercentageLabel()
+    {
+        return investingFundPercentageLabel;
+    }
+    public Label getClothingFundPercentageLabel()
+    {
+        return clothingFundPercentageLabel;
+    }
+    public Label getSupplementFundPercentageLabel()
+    {
+        return supplementFundPercentageLabel;
+    }
+    public Label getChessSetFundPercentageLabel() {
+        return chessSetFundPercentageLabel;
+    }
+    public Label getRunningFundPercentageLabel()
+    {
+        return runningFundPercentageLabel;
+    }
+    public Label getMiscellaneousFundPercentageLabel()
+    {
+        return miscellaneousFundPercentageLabel;
+    }
+    //Text Field accessors
+    public TextField getiPhoneFundPercentageTextField()
+    {
+        return iPhoneFundPercentageTextField;
+    }
+    public TextField getPersonalEmergencyFundPercentageTextField()
+    {
+        return personalEmergencyFundPercentageTextField;
+    }
+    public TextField getFamilyEmergencyFundPercentageTextField()
+    {
+        return familyEmergencyFundPercentageTextField;
+    }
+    public TextField getCarFundPercentageTextField()
+    {
+        return carFundPercentageTextField;
+    }
+    public TextField getInvestingFundPercentageTextField()
+    {
+        return investingFundPercentageTextField;
+    }
+    public TextField getClothingFundPercentageTextField()
+    {
+        return clothingFundPercentageTextField;
+    }
+    public TextField getSupplementFundPercentageTextField()
+    {
+        return supplementFundPercentageTextField;
+    }
+    public TextField getChessSetFundPercentageTextField()
+    {
+        return chessSetFundPercentageTextField;
+    }
+    public TextField getRunningFundPercentageTextField()
+    {
+        return runningFundPercentageTextField;
+    }
+    public TextField getMiscellaneousFundPercentageTextField()
+    {
+        return miscellaneousFundPercentageTextField;
+    }
+
     /**
     public MenuBar returnmmMenuBar()
     {
@@ -193,40 +365,31 @@ public class MoneyManagerControls
         return mmMenuBar;
     }
      */
-    public void listCurrentPercentages(TextField iPhoneFundPercentage, TextField personalEmergencyFundPercentage,
-                                       TextField familyEmergencyFundPercentage, TextField carFundPercentage,
-           TextField investingFundPercentage, TextField clothingFundPercentage, TextField supplementFundPercentage,
-            TextField chessSetFundPercentage, TextField runningFundPercentage, TextField miscellaneousFundPercentage,
-                                       AccountPercentages percentageStorage)
+    public void listCurrentPercentages(AccountPercentages percentageStorage)
     {
-        iPhoneFundPercentage.setText("" + (percentageStorage.getiPhoneBatteryFundPercentage() * 100));
-        personalEmergencyFundPercentage.setText("" + (percentageStorage.getPersonalEmergencyFundPercentage() * 100));
-        familyEmergencyFundPercentage.setText("" + (percentageStorage.getFamilyEmergencyFundPercentage() * 100));
-        carFundPercentage.setText("" + (percentageStorage.getCarFundPercentage() * 100));
-        investingFundPercentage.setText("" + (percentageStorage.getInvestingFundPercentage() * 100));
-        clothingFundPercentage.setText("" + (percentageStorage.getClothingFundPercentage() * 100));
-        supplementFundPercentage.setText("" + (percentageStorage.getSupplementFundPercentage() * 100));
-        chessSetFundPercentage.setText("" + (percentageStorage.getChessSetFundPercentage() * 100));
-        runningFundPercentage.setText("" + (percentageStorage.getRunningFundPercentage() * 100));
-        miscellaneousFundPercentage.setText("" + (percentageStorage.getMiscellaneousFundPercentage() * 100));
+        getiPhoneFundPercentageTextField().setText("" + (percentageStorage.getiPhoneBatteryFundPercentage() * 100));
+        getPersonalEmergencyFundPercentageTextField().setText("" + (percentageStorage.getPersonalEmergencyFundPercentage() * 100));
+        getFamilyEmergencyFundPercentageTextField().setText("" + (percentageStorage.getFamilyEmergencyFundPercentage() * 100));
+        getCarFundPercentageTextField().setText("" + (percentageStorage.getCarFundPercentage() * 100));
+        getInvestingFundPercentageTextField().setText("" + (percentageStorage.getInvestingFundPercentage() * 100));
+        getClothingFundPercentageTextField().setText("" + (percentageStorage.getClothingFundPercentage() * 100));
+        getSupplementFundPercentageTextField().setText("" + (percentageStorage.getSupplementFundPercentage() * 100));
+        getChessSetFundPercentageTextField().setText("" + (percentageStorage.getChessSetFundPercentage() * 100));
+        getRunningFundPercentageTextField().setText("" + (percentageStorage.getRunningFundPercentage() * 100));
+        getMiscellaneousFundPercentageTextField().setText("" + (percentageStorage.getMiscellaneousFundPercentage() * 100));
     }
-    public void setUpdatePercentages(TextField iPhoneFundPercentage, TextField personalEmergencyFundPercentage,
-                                     TextField familyEmergencyFundPercentage, TextField carFundPercentage,
-                                     TextField investingFundPercentage, TextField clothingFundPercentage,
-                                     TextField supplementFundPercentage, TextField chessSetFundPercentage,
-                                     TextField runningFundPercentage, TextField miscellaneousFundPercentage,
-                                     AccountPercentages percentagesStorage)
+    public void setUpdatePercentages(AccountPercentages percentagesStorage)
     {
-        percentagesStorage.setiPhoneBatteryFundPercentage(stringToDouble(iPhoneFundPercentage.getText()));
-        percentagesStorage.setPersonalEmergencyFundPercentage(stringToDouble(personalEmergencyFundPercentage.getText()));
-        percentagesStorage.setFamilyEmergencyFundPercentage(stringToDouble(familyEmergencyFundPercentage.getText()));
-        percentagesStorage.setCarFundPercentage(stringToDouble(carFundPercentage.getText()));
-        percentagesStorage.setInvestingFundPercentage(stringToDouble(investingFundPercentage.getText()));
-        percentagesStorage.setClothingFundPercentage(stringToDouble(clothingFundPercentage.getText()));
-        percentagesStorage.setSupplementFundPercentage(stringToDouble(supplementFundPercentage.getText()));
-        percentagesStorage.setChessSetFundPercentage(stringToDouble(chessSetFundPercentage.getText()));
-        percentagesStorage.setRunningFundPercentage(stringToDouble(runningFundPercentage.getText()));
-        percentagesStorage.setMiscellaneousFundPercentage(stringToDouble(miscellaneousFundPercentage.getText()));
+        percentagesStorage.setiPhoneBatteryFundPercentage(stringToDouble(getiPhoneFundPercentageTextField().getText()));
+        percentagesStorage.setPersonalEmergencyFundPercentage(stringToDouble(getPersonalEmergencyFundPercentageTextField().getText()));
+        percentagesStorage.setFamilyEmergencyFundPercentage(stringToDouble(getFamilyEmergencyFundPercentageTextField().getText()));
+        percentagesStorage.setCarFundPercentage(stringToDouble(getCarFundPercentageTextField().getText()));
+        percentagesStorage.setInvestingFundPercentage(stringToDouble(getInvestingFundPercentageTextField().getText()));
+        percentagesStorage.setClothingFundPercentage(stringToDouble(getClothingFundPercentageTextField().getText()));
+        percentagesStorage.setSupplementFundPercentage(stringToDouble(getSupplementFundPercentageTextField().getText()));
+        percentagesStorage.setChessSetFundPercentage(stringToDouble(getChessSetFundPercentageTextField().getText()));
+        percentagesStorage.setRunningFundPercentage(stringToDouble(getRunningFundPercentageTextField().getText()));
+        percentagesStorage.setMiscellaneousFundPercentage(stringToDouble(getMiscellaneousFundPercentageTextField().getText()));
     }
     public void newWindowToChangePercentages() {
         Stage percentageStage = new Stage();
@@ -236,54 +399,51 @@ public class MoneyManagerControls
 
         VBox percentageLabels = new VBox();
 
-        Label iPhoneFundPercentageLabel = new Label();
-        iPhoneFundPercentageLabel.setText("iPhone Percentage");
-        Label personalEmergencyFundPercentageLabel = new Label();
-        personalEmergencyFundPercentageLabel.setText("Personal Emergency Percentage");
-        Label familyEmergencyFundPercentageLabel = new Label();
-        familyEmergencyFundPercentageLabel.setText("Family Emergency Percentage");
-        Label carFundPercentageLabel = new Label("Car Percentage");
-        Label investingFundPercentageLabel = new Label("Investing Percentage");
-        Label clothingFundPercentageLabel = new Label("Clothing Percentage");
-        Label supplementFundPercentageLabel = new Label("Supplement Percentage");
-        Label chessSetFundPercentageLabel = new Label("Chess Set Percentage");
-        Label runningFundPercentageLabel = new Label("Running Percentage");
-        Label miscellaneousFundPercentageLabel = new Label("Miscellaneous Percentage");
+        setiPhoneFundPercentageLabel(new Label("iPhone Percentage"));
+        setPersonalEmergencyFundPercentageLabel(new Label("Personal Emergency Percentage"));
+        setFamilyEmergencyFundPercentageLabel(new Label("Family Emergency Percentage"));
+        setCarFundPercentageLabel(new Label("Car Percentage"));
+        setInvestingFundPercentageLabel(new Label("Investing Percentage"));
+        setClothingFundPercentageLabel(new Label("Clothing Percentage"));
+        setSupplementFundPercentageLabel(new Label("Supplement Percentage"));
+        setChessSetFundPercentageLabel(new Label("Chess Set Percentage"));
+        setRunningFundPercentageLabel(new Label("Running Percentage"));
+        setMiscellaneousFundPercentageLabel(new Label("Miscellaneous Percentage"));
 
-        percentageLabels.getChildren().addAll(iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
-                familyEmergencyFundPercentageLabel, carFundPercentageLabel, investingFundPercentageLabel,
-                clothingFundPercentageLabel, supplementFundPercentageLabel, chessSetFundPercentageLabel,
-                runningFundPercentageLabel, miscellaneousFundPercentageLabel);
+        percentageLabels.getChildren().addAll(getiPhoneFundPercentageLabel(), getPersonalEmergencyFundPercentageLabel(),
+                getFamilyEmergencyFundPercentageLabel(), getCarFundPercentageLabel(), getInvestingFundPercentageLabel(),
+                getClothingFundPercentageLabel(), getSupplementFundPercentageLabel(), getChessSetFundPercentageLabel(),
+                getRunningFundPercentageLabel(), getMiscellaneousFundPercentageLabel());
         percentageLabels.setPadding(new Insets(10, 10, 10, 10));
         percentageLabels.setSpacing(20);
 
         VBox percentageTextFields = new VBox();
 
-        TextField iPhoneFundPercentageTextField = new TextField();
-        iPhoneFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField personalEmergencyFundPercentageTextField = new TextField();
-        personalEmergencyFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField familyEmergencyFundPercentageTextField = new TextField();
-        familyEmergencyFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField carFundPercentageTextField = new TextField();
-        carFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField investingFundPercentageTextField = new TextField();
-        investingFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField clothingFundPercentageTextField = new TextField();
-        clothingFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField supplementFundPercentageTextField = new TextField();
-        supplementFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField chessSetFundPercentageTextField = new TextField();
-        chessSetFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField runningFundPercentageTextField = new TextField();
-        runningFundPercentageTextField.setPromptText("Enter Percentage");
-        TextField miscellaneousFundPercentageTextField = new TextField();
-        miscellaneousFundPercentageTextField.setPromptText("Enter Percentage");
+        setiPhoneFundPercentageTextField(new TextField());
+        getiPhoneFundPercentageTextField().setPromptText("Enter Percentage");
+        setPersonalEmergencyFundPercentageTextField(new TextField());
+        getPersonalEmergencyFundPercentageTextField().setPromptText("Enter Percentage");
+        setFamilyEmergencyFundPercentageTextField(new TextField());
+        getFamilyEmergencyFundPercentageTextField().setPromptText("Enter Percentage");
+        setCarFundPercentageTextField(new TextField());
+        getCarFundPercentageTextField().setPromptText("Enter Percentage");
+        setInvestingFundPercentageTextField(new TextField());
+        getInvestingFundPercentageTextField().setPromptText("Enter Percentage");
+        setClothingFundPercentageTextField(new TextField());
+        getClothingFundPercentageTextField().setPromptText("Enter Percentage");
+        setSupplementFundPercentageTextField(new TextField());
+        getSupplementFundPercentageTextField().setPromptText("Enter Percentage");
+        setChessSetFundPercentageTextField(new TextField());
+        getChessSetFundPercentageTextField().setPromptText("Enter Percentage");
+        setRunningFundPercentageTextField(new TextField());
+        getRunningFundPercentageTextField().setPromptText("Enter Percentage");
+        setMiscellaneousFundPercentageTextField(new TextField());
+        getMiscellaneousFundPercentageTextField().setPromptText("Enter Percentage");
 
-        percentageTextFields.getChildren().addAll(iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
-                familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
-                clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
-                runningFundPercentageTextField, miscellaneousFundPercentageTextField);
+        percentageTextFields.getChildren().addAll(getiPhoneFundPercentageTextField(), getPersonalEmergencyFundPercentageTextField(),
+                getFamilyEmergencyFundPercentageTextField(), getCarFundPercentageTextField(), getInvestingFundPercentageTextField(),
+                getClothingFundPercentageTextField(), getSupplementFundPercentageTextField(), getChessSetFundPercentageTextField(),
+                getRunningFundPercentageTextField(), getMiscellaneousFundPercentageTextField());
         percentageTextFields.setPadding(new Insets(10, 10, 10, 10));
         percentageTextFields.setSpacing(10);
 
@@ -294,18 +454,12 @@ public class MoneyManagerControls
         currentPercentages = new MenuItem("Load Current Percentages");
         currentPercentages.setOnAction(e ->
         {
-            listCurrentPercentages(iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
-                    familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
-                    clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
-                    runningFundPercentageTextField, miscellaneousFundPercentageTextField, percentageStorage);
+            listCurrentPercentages(percentageStorage);
         });
         updatePercentages = new MenuItem("Update Percentages");
         updatePercentages.setOnAction(e ->
         {
-            setUpdatePercentages(iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
-                    familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
-                    clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
-                    runningFundPercentageTextField, miscellaneousFundPercentageTextField, percentageStorage);
+            setUpdatePercentages(percentageStorage);
         });
         closePercentages = new MenuItem("Close Percentages Window");
         closePercentages.setOnAction(e ->
