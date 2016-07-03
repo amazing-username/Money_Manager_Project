@@ -39,7 +39,8 @@ public class Main extends Application
 
 		BorderPane bp = new BorderPane();
 		bp.setTop(controls.getmmMenuBar());
-		bp.setBottom(controls.returnMoneyStuff());
+		bp.setCenter(controls.bpCenterSetup());
+		//bp.setBottom(controls.returnMoneyStuff());
 
 
 		Scene scn = new Scene(bp);

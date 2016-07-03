@@ -1,6 +1,8 @@
 package sample;
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -8,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,16 +23,19 @@ public class MoneyManagerControls
     {
 
     }
-    private TableView moneyStuff;
+    private Button checkButton;
+    private ComboBox accountDropDown;
     //Uninitialized menu items
     private Menu mmFileMenu, mmEditMenu, mmHelpMenu;
+    private MenuBar mmMenuBar;
     private MenuItem saveToDatabase, closeApplication, addPaycheck, manualMoneyTransfer,
             changePercentages, aboutApplication;
-    private MenuBar mmMenuBar;
+
     private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
     familyEmergencyFundPercentageLabel, carFundPercentageLabel, investingFundPercentageLabel,
     clothingFundPercentageLabel, supplementFundPercentageLabel, chessSetFundPercentageLabel,
     runningFundPercentageLabel, miscellaneousFundPercentageLabel;
+    private TableView moneyStuff;
     private TextField iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
     familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
     clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
@@ -159,6 +165,14 @@ public class MoneyManagerControls
     public void setMiscellaneousFundPercentageTextField(TextField miscellaneousFundPercentageTextField)
     {
         this.miscellaneousFundPercentageTextField = miscellaneousFundPercentageTextField;
+    }
+    public void setAccountDropDown(ComboBox accountDropDown)
+    {
+        this.accountDropDown = accountDropDown;
+    }
+    public void setCheckButton(Button checkButton)
+    {
+        this.checkButton = checkButton;
     }
 
     //Menu bar accessor
@@ -322,49 +336,41 @@ public class MoneyManagerControls
     {
         return miscellaneousFundPercentageTextField;
     }
-
-    /**
-    public MenuBar returnmmMenuBar()
+    public Button getCheckButton()
     {
-        //For File Menu
-        setmmFileMenu(new Menu("File"));
-        saveToDatabase = new MenuItem();
-        closeApplication = new MenuItem();
-        saveToDatabase.setText("save");
-        closeApplication.setText("close");
-        closeApplication.setOnAction(e ->
-        {
-            System.exit(0);
-        });
-        getmmFileMenu().getItems().addAll(saveToDatabase, closeApplication);
-
-        //For Edit Menu
-        mmEditMenu = new Menu("Edit");
-        addPaycheck = new MenuItem();
-        manualMoneyTransfer = new MenuItem();
-        changePercentages = new MenuItem();
-        addPaycheck.setText("add paycheck");
-        manualMoneyTransfer.setText("transfer money");
-        changePercentages.setText("change percentages");
-        changePercentages.setOnAction( e ->
-        {
-            newWindowToChangePercentages();
-        });
-        mmEditMenu.getItems().addAll(addPaycheck, manualMoneyTransfer,
-                changePercentages);
-
-        //For Help Menu
-        mmHelpMenu = new Menu("Help");
-        aboutApplication = new MenuItem();
-        aboutApplication.setText("info");
-        mmHelpMenu.getItems().add(aboutApplication);
-
-        setmmMenuBar(new MenuBar());
-        mmMenuBar.getMenus().addAll(getmmFileMenu(), getmmEditMenu(), getmmHelpMenu());
-
-        return mmMenuBar;
+        return checkButton;
     }
-     */
+    public ComboBox getAccountDropDown()
+    {
+        return accountDropDown;
+    }
+
+
+    public HBox comboBoxAndButton()
+    {
+        HBox topOfCenterThis = new HBox();
+        String bongoBongo[] = {"Left", "Right", "Up", "Down"};
+        setAccountDropDown(new ComboBox());
+        getAccountDropDown().getItems().addAll(bongoBongo);
+        setCheckButton(new Button("^"));
+
+        topOfCenterThis.setSpacing(20);
+        getAccountDropDown().setMinSize(650, 20);
+        topOfCenterThis.getChildren().addAll(getAccountDropDown(), getCheckButton());
+
+        return topOfCenterThis;
+    }
+    public VBox bpCenterSetup()
+    {
+        VBox centerThis = new VBox();
+
+        centerThis.getChildren().addAll(comboBoxAndButton(), returnMoneyStuff());
+
+        centerThis.setSpacing(20);
+        centerThis.setPadding(new Insets(200,50,200,50));
+
+        return centerThis;
+    }
     public void listCurrentPercentages(AccountPercentages percentageStorage)
     {
         getiPhoneFundPercentageTextField().setText("" + (percentageStorage.getiPhoneBatteryFundPercentage() * 100));
