@@ -8,7 +8,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -196,6 +198,10 @@ public class MoneyManagerControls
         setManualMoneyTransfer(new MenuItem());
         setChangePercentages(new MenuItem());
         getAddPaycheck().setText("add paycheck");
+        getAddPaycheck().setOnAction(e ->
+        {
+            newWindowToAddPaycheck();
+        });
         getManualMoneyTransfer().setText("transfer money");
         getChangePercentages().setText("change percentages");
         getChangePercentages().setOnAction( e ->
@@ -397,7 +403,8 @@ public class MoneyManagerControls
         percentagesStorage.setRunningFundPercentage(stringToDouble(getRunningFundPercentageTextField().getText()));
         percentagesStorage.setMiscellaneousFundPercentage(stringToDouble(getMiscellaneousFundPercentageTextField().getText()));
     }
-    public void newWindowToChangePercentages() {
+    public void newWindowToChangePercentages()
+    {
         Stage percentageStage = new Stage();
         BorderPane percentageBorderPane = new BorderPane();
         AccountPercentages percentageStorage = new AccountPercentages();
@@ -496,6 +503,86 @@ public class MoneyManagerControls
         percentageStage.setScene(percentageScene);
         percentageStage.show();
     }
+    public void newWindowToAddPaycheck()
+    {
+        Stage addMoneyStage = new Stage();
+        BorderPane bpAddMoney = new BorderPane();
+        VBox vbAddMoneyLeft = new VBox();
+        VBox vbAddMoneyCenter = new VBox();
+        VBox vbAddMoneyRight = new VBox();
+
+        Label paycheckLabel = new Label("Paycheck");
+        Label deductionLabel = new Label("Deduction");
+
+        TextField paycheckTextField = new TextField();
+        TextField deductionTextField = new TextField();
+
+        Button doTheDeedButton = new Button(" x ");
+        Button changeDeductionTypeButton = new Button(" - ");
+        changeDeductionTypeButton.setOnAction(e ->
+        {
+            if (changeDeductionTypeButton.getText().equalsIgnoreCase(" - "))
+            {
+                changeDeductionTypeButton.setText("%");
+            }
+            else if (changeDeductionTypeButton.getText().equalsIgnoreCase("%"))
+            {
+                changeDeductionTypeButton.setText(" - ");
+            }
+        });
+        doTheDeedButton.setOnAction(e ->
+        {
+            PaycheckAndDeductions paycheckStuff = new PaycheckAndDeductions();
+            paycheckStuff.setPaycheck(Double.parseDouble(paycheckTextField.getText()));
+
+            if (changeDeductionTypeButton.getText().equalsIgnoreCase(" - "))
+            {
+                paycheckStuff.setDeductionNumber(Double.parseDouble(deductionTextField.getText()));
+                paycheckStuff.setNetDistribute(calculateNetDistributeWithNumber(paycheckStuff.getPaycheck(), paycheckStuff.getDeductionNumber()));
+            }
+            else if (changeDeductionTypeButton.getText().equalsIgnoreCase("%"))
+            {
+                paycheckStuff.setDeductionPercentage(Double.parseDouble(deductionTextField.getText()));
+                paycheckStuff.setNetDistribute(calculateNetDistributeWithPercentage(paycheckStuff.getPaycheck(), paycheckStuff.getDeductionPercentage()));
+            }
+
+                paycheckLabel.setText(""+paycheckStuff.getNetDistribute());
+        });
+
+        vbAddMoneyLeft.getChildren().addAll(paycheckLabel, deductionLabel);
+        vbAddMoneyCenter.getChildren().addAll(paycheckTextField, deductionTextField);
+        vbAddMoneyRight.getChildren().addAll(doTheDeedButton, changeDeductionTypeButton);
+
+        vbAddMoneyLeft.setSpacing(35);
+        vbAddMoneyLeft.setPadding(new Insets(150, 10, 10, 10));
+        vbAddMoneyCenter.setSpacing(20);
+        vbAddMoneyCenter.setPadding(new Insets(150, 10, 10, 10));
+        vbAddMoneyRight.setSpacing(20);
+        vbAddMoneyRight.setPadding(new Insets(150, 10, 10, 10));
+
+        bpAddMoney.setLeft(vbAddMoneyLeft);
+        bpAddMoney.setCenter(vbAddMoneyCenter);
+        bpAddMoney.setRight(vbAddMoneyRight);
+
+        Scene addMoneyScene = new Scene(bpAddMoney);
+
+        addMoneyStage.setScene(addMoneyScene);
+        addMoneyStage.setWidth(450);
+        addMoneyStage.setHeight(500);
+        addMoneyStage.show();
+    }
+    public double calculateNetDistributeWithNumber(double paycheck, double number)
+    {
+        double netDistribute = paycheck - number;
+
+        return netDistribute;
+    }
+    public double calculateNetDistributeWithPercentage(double paycheck, double percentage)
+    {
+        double netDistribute = paycheck * (percentage / 100);
+
+        return netDistribute;
+    }
 
     public void setMoneyStuff(TableView moneyStuff)
     {
@@ -504,6 +591,22 @@ public class MoneyManagerControls
     public TableView returnMoneyStuff()
     {
         TableView ms = new TableView();
+        TableColumn date = new TableColumn();
+        TableColumn account = new TableColumn();
+        TableColumn balance = new TableColumn();
+        TableColumn transactionType = new TableColumn();
+        TableColumn transaction = new TableColumn();
+        TableColumn comment = new TableColumn();
+        String bangBang[] = {"Blaow", "Sophisticated", "So Icy"};
+        //date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        date.setText("Date");
+        account.setText("Account");
+        balance.setText("Balance");
+        transactionType.setText("Transaction Type");
+        //transactionType.setCellValueFactory(new PropertyValueFactory<>("Transaction Type"));
+        transaction.setText("Transaction");
+        comment.setText("Comment");
+        ms.getColumns().addAll(date, account, balance, transactionType, transaction, comment);
         setMoneyStuff(ms);
 
         return moneyStuff;
