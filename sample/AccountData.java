@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class AccountData
@@ -16,6 +17,12 @@ public class AccountData
     private Map<Integer, Character> transactionType;
     private Map<Integer, Double> transaction;
     private Map<Integer, String> transactionComment;
+
+    private Map<String, String> comboColumData = new HashMap<String, String>();
+
+    final private String[] accountList = {"iPhoneAccount", "personalEmergencyAccount", "familyEmergencyAccount",
+            "carAccount", "investingAccount", "clothingAccount", "supplementsAccount", "chessSetAccount",
+            "runningAccount", "miscellaneousAccount"};
 
     public void setDateOfAccountTransaction(Map<Integer, String> dateOfAccountTransaction)
     {
@@ -40,6 +47,15 @@ public class AccountData
     public void setTransactionComment(Map<Integer, String> transactionComment)
     {
         this.transactionComment = transactionComment;
+    }
+    public void setComboColumData()
+    {
+        MoneyManagerControls mmc = new MoneyManagerControls();
+
+        for (int i = 0; i < 10; i++)
+        {
+            comboColumData.put(mmc.getAccountList()[i], accountList[i]);
+        }
     }
 
     public Map<Integer, String> getDateOfAccountTransaction()
@@ -66,4 +82,5 @@ public class AccountData
     {
         return transactionComment;
     }
+
 }

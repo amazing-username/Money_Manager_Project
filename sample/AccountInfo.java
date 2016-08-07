@@ -24,58 +24,58 @@ public class AccountInfo
 	private StringProperty date = new SimpleStringProperty(this, "Date");
 	private StringProperty account = new SimpleStringProperty(this, "Account");
 	private StringProperty balance = new SimpleStringProperty(this, "Balance");
-	private StringProperty transaction_Type = new SimpleStringProperty(this, "Transaction_Type);
+	private StringProperty transaction_Type = new SimpleStringProperty(this, "Transaction_Type)");
 	private StringProperty transaction = new SimpleStringProperty(this, "Transaction");
 	private StringProperty comment = new SimpleStringProperty(this, "Comment");
 	
 	
 	public void setDate(String date)
 	{
-		this.date().set(date);
+		this.date.set(date);
 	}
 	public void setAccount(String account)
 	{
-		this.account().set(account);
+		this.account.set(account);
 	}
 	public void setBalance(String balance)
 	{
-		this.balance().set(balance);
+		this.balance.set(balance);
 	}
 	public void setTransaction_Type(String transaction_Type)
 	{
-		this.transaction_Type().set(transaction_Type);
+		this.transaction_Type.set(transaction_Type);
 	}
 	public void setTransaction(String transaction)
 	{
-		this.transaction().set(transaction);
+		this.transaction.set(transaction);
 	}
 	public void setComment(String comment)
 	{
-		this.comment().set(comment);
+		this.comment.set(comment);
 	}
 
 	public StringProperty getDate()
 	{
-		return date().get();
+		return date;
 	}
 	public StringProperty getAccount()
 	{
-		return account().get();
+		return account;
 	}
 	public StringProperty getBalance()
 	{
-		return balance().get();
+		return balance;
 	}
 	public StringProperty getTransaction_Type()
 	{
-		return transaction_Type().get();
+		return transaction_Type;
 	}
 	public StringProperty getTransaction()
 	{
-		return transaction().get();
+		return transaction;
 	}
 	public StringProperty getComment()
 	{
-		return comment().get();
+		return comment;
 	}
 }

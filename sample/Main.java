@@ -30,6 +30,8 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
+
+		DatabaseConnection dbmmp = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 		MoneyManagerControls controls = new MoneyManagerControls();
 
 		String[] accounts = {"iPhone Fund", "Personal Emergency Fund",

@@ -1,5 +1,6 @@
 package sample;
 
+import java.sql.SQLException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -42,6 +43,10 @@ public class MoneyManagerControls
     familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
     clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
     runningFundPercentageTextField, miscellaneousFundPercentageTextField;
+    final private String accountList[] = {"iPhone Account", "Personal Emergency Account", "Family Emergency Account",
+            "Car Account", "Investing Account", "Clothing Account", "Supplement Account",
+            "Chess Set Account", "Running Account", "Miscellaneous Account"
+    };
 
     //Menu bar mutator
     public void setmmMenuBar(MenuBar mmMenuBar)
@@ -350,15 +355,48 @@ public class MoneyManagerControls
     {
         return accountDropDown;
     }
+    public String[] getAccountList()
+    {
+        return accountList;
+    }
 
+
+    /*
+     * Need to figure out a way that when the button is pressed it will take the selected
+     * text from the Combo Box - which is not in the same format as the tables in the
+     * database - and grab the corressponding table in the database and display the
+     * transaction. What that means is I should be able to effortlessly select a text
+     * from the drop-down box, press the button and the contents of the table will be
+     * displayed from the database to the table view and table columns.
+     *
+     * I might run into issues such as missing table columns, logical errors, etc.
+     */
 
     public HBox comboBoxAndButton()
     {
+        AccountData ad = new AccountData();
         HBox topOfCenterThis = new HBox();
-        String bongoBongo[] = {"Left", "Right", "Up", "Down"};
+        //ad.setComboColumData();
+
         setAccountDropDown(new ComboBox());
-        getAccountDropDown().getItems().addAll(bongoBongo);
+        getAccountDropDown().getItems().addAll(getAccountList());
         setCheckButton(new Button("^"));
+
+        Stage yes = new Stage();
+        TextField tf = new TextField(""+((Math.random())*100));
+        Scene cumDumpster = new Scene(tf);
+        yes.setScene(cumDumpster);
+        yes.setWidth(300);
+        yes.setHeight(300);
+
+        getCheckButton().setOnAction(e ->
+        {
+           yes.hide();
+           tf.setText("" + getAccountDropDown().getValue()   );
+           cumDumpster.setRoot(tf);
+           yes.setScene(cumDumpster);
+           yes.show();
+        });
 
         topOfCenterThis.setSpacing(20);
         getAccountDropDown().setMinSize(650, 20);
@@ -591,21 +629,29 @@ public class MoneyManagerControls
     public TableView returnMoneyStuff()
     {
         TableView ms = new TableView();
-        TableColumn date = new TableColumn();
-        TableColumn account = new TableColumn();
-        TableColumn balance = new TableColumn();
-        TableColumn transactionType = new TableColumn();
-        TableColumn transaction = new TableColumn();
-        TableColumn comment = new TableColumn();
+
+        TableColumn date = new TableColumn("date");
+        date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+        date.setMinWidth(100);
+        TableColumn account = new TableColumn("Account");
+        account.setCellValueFactory(new PropertyValueFactory<>("Account"));
+        account.setMinWidth(100);
+        TableColumn balance = new TableColumn("Balance");
+        balance.setCellValueFactory(new PropertyValueFactory<>("Balance"));
+        balance.setMinWidth(100);
+        TableColumn transactionType = new TableColumn("Transaction_Type");
+        transactionType.setCellValueFactory(new PropertyValueFactory<>("Transaction_Type"));
+        transactionType.setMinWidth(150);
+        TableColumn transaction = new TableColumn("Transaction");
+        transaction.setCellValueFactory(new PropertyValueFactory<>("Transaction"));
+        transaction.setMinWidth(100);
+        TableColumn comment = new TableColumn("Comment");
+        comment.setCellValueFactory(new PropertyValueFactory<>("Comment"));
+        comment.setMinWidth(100);
+
         String bangBang[] = {"Blaow", "Sophisticated", "So Icy"};
-        //date.setCellValueFactory(new PropertyValueFactory<>("Date"));
-        date.setText("Date");
-        account.setText("Account");
-        balance.setText("Balance");
-        transactionType.setText("Transaction Type");
-        //transactionType.setCellValueFactory(new PropertyValueFactory<>("Transaction Type"));
-        transaction.setText("Transaction");
-        comment.setText("Comment");
+
+
         ms.getColumns().addAll(date, account, balance, transactionType, transaction, comment);
         setMoneyStuff(ms);
 

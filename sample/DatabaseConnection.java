@@ -1,10 +1,11 @@
 package sample;
 
 import java.sql.Connection;
-import java.sql.DriveManager;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.mariadb.jdbc.Driver;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +16,10 @@ public class DatabaseConnection
 	public DatabaseConnection()
 	{
 	}
-	public DatabaseConnection(String databaseURL, String username, String password)
+	public DatabaseConnection(String databaseURL, String username, String password) throws SQLException
 	{
-		hahaha = DriveManager.getConnection(databaseURL, username, password);
+		hahaha = DriverManager.getConnection(databaseURL, username, password);
+
 	}
 
 	private Connection hahaha;
@@ -31,23 +33,14 @@ public class DatabaseConnection
 	{
 		this.account = account;
 	}
-	public void setInsertStatement()
+	public void setInsertStatement() throws  SQLException
 	{
 		insertStatement = hahaha.createStatement();
 	}
-	public void setListStatement()
+	public void setAccountDetails(ArrayList accountDetails)
 	{
-		listStatement = hahaha.createStatement();
+        this.accountDetails = accountDetails;
 	}
-	public void setStatementExe(String que)
-	{
-		statementExe = listStatement.execuiteQuery(que);
-	}
-	public void setAccountDetails()
-	{
-
-	}
-
 
 	/*
 	 * going to use the account variable for multi-purpose use
@@ -55,10 +48,10 @@ public class DatabaseConnection
 	 * switching but soon it will be used for adding values
 	 * to tables.
 	 */
-	public void insertsToTable(String date, String Account, String balance, String transaction_Type, String transaction, String comment)
+	public void insertsToTable(String date, String Account, String balance, String transaction_Type, String transaction, String comment) throws SQLException
 	{
 		setInsertStatement();
-		getInsertStatement().executeUpdate("insert into " + account " (Date, Account, Balance, Transaction_Type, Transaction, Comment)"
+		getInsertStatement().executeUpdate("insert into " + account + " (Date, Account, Balance, Transaction_Type, Transaction, Comment)"
 		+ " values (" + date + ", " + account + ", " + balance + ", " + transaction_Type + ", " + transaction + ", " + comment + ")");
 
 	}
@@ -67,13 +60,37 @@ public class DatabaseConnection
 	{
 		return account;
 	}
+	public List getAccountDetails()
+	{
+		return accountDetails;
+	}
+	public Statement getInsertStatement()
+	{
+		return insertStatement;
+	}
 	public List<AccountInfo> getAccountInfo() throws SQLException
 	{
-		String que = "select * from " + account + " order by Date Desc";
+		String que = "select * from " + getAccount() + " order by Date Desc";
 		try(
-			setListStatement();
-			setStatementExe(que);
+			Statement listStatement = hahaha.createStatement();
+			ResultSet statementExe = listStatement.executeQuery(que);
 		)
 		{
-			setAccountDetails();
+			setAccountDetails(new ArrayList<>());
+            while (statementExe.next())
+            {
+                String date = statementExe.getString("Date");
+                String accountName = statementExe.getString("Account");
+                String balance = statementExe.getString("Balance");
+                String transaction_Type = statementExe.getString("Transaction_Type");
+                String transaction = statementExe.getString("Transaction");
+                String comment = statementExe.getString("Comment");
+
+                AccountInfo ai = new AccountInfo(date, accountName, balance, transaction_Type, transaction, comment);
+                getAccountDetails().add(ai);
+            }
+            return getAccountDetails();
+        }
+
+    }
 }

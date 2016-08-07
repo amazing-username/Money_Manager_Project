@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.16-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.14-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: moneydatabase
 -- ------------------------------------------------------
--- Server version	10.1.16-MariaDB
+-- Server version	10.1.14-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -92,7 +92,7 @@ CREATE TABLE `clothingAccount` (
 
 LOCK TABLES `clothingAccount` WRITE;
 /*!40000 ALTER TABLE `clothingAccount` DISABLE KEYS */;
-INSERT INTO `clothingAccount` VALUES ('2016-06-10-12-00','Clothing',74,'+',74,'Paycheck'),('2016-06-25-12-00','Clothing',82,'+',8,'Paycheck'),('2016-07-09-12-00','Clothing',98,'+',16,'Paycheck'),('2016-08-01-12-00','Clothing',114,'+',16,'Paycheck'),('2016-08-01-12-01','Clothing',87,'-',27,'Levi Purchase'),('2016-08-06-12-00','Clothing',17,'-',70,'Nike Purchase');
+INSERT INTO `clothingAccount` VALUES ('2016-06-10-12-00','Clothing',74,'+',74,'Paycheck'),('2016-06-25-12-00','Clothing',82,'+',8,'Paycheck'),('2016-07-09-12-00','Clothing',98,'+',16,'Paycheck'),('2016-08-01-12-00','Clothing',114,'+',16,'Paycheck');
 /*!40000 ALTER TABLE `clothingAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +254,7 @@ CREATE TABLE `runningAccount` (
 
 LOCK TABLES `runningAccount` WRITE;
 /*!40000 ALTER TABLE `runningAccount` DISABLE KEYS */;
-INSERT INTO `runningAccount` VALUES ('2016-06-10-12-00','Running',26,'+',26,'Paycheck'),('2016-06-25-12-00','Running',32,'+',6,'Paycheck'),('2016-07-09-12-00','Running',46,'+',14,'Paycheck'),('2016-08-01-12-00','Running',60,'+',14,'Paycheck'),('2016-08-06-12-00','Running',0,'-',60,'Nike Purchase');
+INSERT INTO `runningAccount` VALUES ('2016-06-10-12-00','Running',26,'+',26,'Paycheck'),('2016-06-25-12-00','Running',32,'+',6,'Paycheck'),('2016-07-09-12-00','Running',46,'+',14,'Paycheck'),('2016-08-01-12-00','Running',60,'+',14,'Paycheck');
 /*!40000 ALTER TABLE `runningAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-07 16:11:02
+-- Dump completed on 2016-08-03 13:33:13
