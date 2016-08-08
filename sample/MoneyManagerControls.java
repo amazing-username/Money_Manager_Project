@@ -391,11 +391,26 @@ public class MoneyManagerControls
 
         getCheckButton().setOnAction(e ->
         {
-           yes.hide();
-           tf.setText("" + getAccountDropDown().getValue()   );
-           cumDumpster.setRoot(tf);
-           yes.setScene(cumDumpster);
-           yes.show();
+            AccountData junkInTheTrunk = new AccountData();
+            junkInTheTrunk.setComboColumData();
+
+            DatabaseConnection dbsql;
+
+            try {
+                Main mm = new Main();
+                dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+
+                dbsql.setAccount( junkInTheTrunk.getComboColumData().get(getAccountDropDown().getValue())  );
+
+                returnMoneyStuff().getItems().clear();
+                returnMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
+                mm.getbp().setCenter(returnMoneyStuff());
+            }
+            catch (SQLException s)
+            {
+                s.printStackTrace();
+            }
+
         });
 
         topOfCenterThis.setSpacing(20);
@@ -404,6 +419,9 @@ public class MoneyManagerControls
 
         return topOfCenterThis;
     }
+
+
+
     public VBox bpCenterSetup()
     {
         VBox centerThis = new VBox();
@@ -412,6 +430,17 @@ public class MoneyManagerControls
 
         centerThis.setSpacing(20);
         centerThis.setPadding(new Insets(200,50,200,50));
+
+        return centerThis;
+    }
+    public VBox bpCenterSetup(TableView returnMoneyStuff)
+    {
+        VBox centerThis = new VBox();
+
+        centerThis.getChildren().addAll(comboBoxAndButton(), returnMoneyStuff);
+
+        centerThis.setSpacing(20);
+        centerThis.setPadding(new Insets(200, 50, 200, 50));
 
         return centerThis;
     }

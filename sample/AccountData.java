@@ -83,4 +83,9 @@ public class AccountData
         return transactionComment;
     }
 
+    public Map<String, String> getComboColumData()
+    {
+        return comboColumData;
+    }
+
 }

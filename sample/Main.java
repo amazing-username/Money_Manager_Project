@@ -15,6 +15,7 @@ package sample;
  */
 
 import javafx.application.Application;
+import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -25,6 +26,27 @@ public class Main extends Application
 	public Main()
 	{
 	
+	}
+
+	private BorderPane bp;
+	private Stage primaryStage;
+	private Scene scn;
+
+	public void setScn(BorderPane bp)
+	{
+		scn = new Scene(bp);
+	}
+
+	public BorderPane getbp ()
+	{
+		bp = new BorderPane();
+
+		return bp;
+	}
+	public Scene getScn()
+	{
+
+		return scn;
 	}
 
 	@Override
@@ -39,13 +61,13 @@ public class Main extends Application
 			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
 			"Miscellaneous Fund"};
 
-		BorderPane bp = new BorderPane();
-		bp.setTop(controls.getmmMenuBar());
+		//BorderPane bp = new BorderPane();
+
+		getbp().setTop(controls.getmmMenuBar());
 		bp.setCenter(controls.bpCenterSetup());
-		//bp.setBottom(controls.returnMoneyStuff());
+		//setBottom(controls.returnMoneyStuff());
 
-
-		Scene scn = new Scene(bp);
+		setScn(getbp());
 
 		/* Switched from the setHeight and setWidth
 		 * methods to the minimum and maximum
@@ -56,7 +78,7 @@ public class Main extends Application
 		primaryStage.setMinWidth(800);
 		primaryStage.setMaxWidth(800);
 		primaryStage.setTitle("MM");
-		primaryStage.setScene(scn);
+		primaryStage.setScene(getScn());
 		primaryStage.show();
 	}
 	public static void main(String[] args)
