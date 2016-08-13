@@ -389,6 +389,8 @@ public class MoneyManagerControls
         yes.setWidth(300);
         yes.setHeight(300);
 
+
+        /**
         getCheckButton().setOnAction(e ->
         {
             AccountData junkInTheTrunk = new AccountData();
@@ -405,6 +407,7 @@ public class MoneyManagerControls
                 returnMoneyStuff().getItems().clear();
                 returnMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
                 mm.getbp().setCenter(returnMoneyStuff());
+
             }
             catch (SQLException s)
             {
@@ -412,7 +415,7 @@ public class MoneyManagerControls
             }
 
         });
-
+        */
         topOfCenterThis.setSpacing(20);
         getAccountDropDown().setMinSize(650, 20);
         topOfCenterThis.getChildren().addAll(getAccountDropDown(), getCheckButton());

@@ -19,6 +19,7 @@ import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import java.sql.SQLException;
 
 
 public class Main extends Application
@@ -67,12 +68,38 @@ public class Main extends Application
 		bp.setCenter(controls.bpCenterSetup());
 		//setBottom(controls.returnMoneyStuff());
 
-		setScn(getbp());
+		setScn(bp);
 
 		/* Switched from the setHeight and setWidth
 		 * methods to the minimum and maximum
 		 * equivalents.
 		 */
+
+		controls.getCheckButton().setOnAction(e ->
+		{
+			AccountData junkInTheTrunk = new AccountData();
+			junkInTheTrunk.setComboColumData();
+
+			DatabaseConnection dbsql;
+
+			try {
+				//Main mm = new Main();
+				dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+
+				dbsql.setAccount( controls.getAccountDropDown().getValue() );
+
+				controls.returnMoneyStuff().getItems().clear();
+				controls.returnMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
+				getbp().setCenter(controls.returnMoneyStuff());
+
+			}
+			catch (SQLException s)
+			{
+				s.printStackTrace();
+			}
+
+		});
+
 		primaryStage.setMinHeight(900);
 		primaryStage.setMaxHeight(900);
 		primaryStage.setMinWidth(800);
