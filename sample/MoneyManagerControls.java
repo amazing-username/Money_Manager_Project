@@ -1,6 +1,5 @@
 package sample;
 
-import java.sql.SQLException;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -372,6 +371,7 @@ public class MoneyManagerControls
      * I might run into issues such as missing table columns, logical errors, etc.
      */
 
+
     public HBox comboBoxAndButton()
     {
         AccountData ad = new AccountData();
@@ -382,40 +382,6 @@ public class MoneyManagerControls
         getAccountDropDown().getItems().addAll(getAccountList());
         setCheckButton(new Button("^"));
 
-        Stage yes = new Stage();
-        TextField tf = new TextField(""+((Math.random())*100));
-        Scene cumDumpster = new Scene(tf);
-        yes.setScene(cumDumpster);
-        yes.setWidth(300);
-        yes.setHeight(300);
-
-
-        /**
-        getCheckButton().setOnAction(e ->
-        {
-            AccountData junkInTheTrunk = new AccountData();
-            junkInTheTrunk.setComboColumData();
-
-            DatabaseConnection dbsql;
-
-            try {
-                Main mm = new Main();
-                dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
-
-                dbsql.setAccount( junkInTheTrunk.getComboColumData().get(getAccountDropDown().getValue())  );
-
-                returnMoneyStuff().getItems().clear();
-                returnMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
-                mm.getbp().setCenter(returnMoneyStuff());
-
-            }
-            catch (SQLException s)
-            {
-                s.printStackTrace();
-            }
-
-        });
-        */
         topOfCenterThis.setSpacing(20);
         getAccountDropDown().setMinSize(650, 20);
         topOfCenterThis.getChildren().addAll(getAccountDropDown(), getCheckButton());
@@ -423,27 +389,14 @@ public class MoneyManagerControls
         return topOfCenterThis;
     }
 
-
-
     public VBox bpCenterSetup()
     {
         VBox centerThis = new VBox();
 
-        centerThis.getChildren().addAll(comboBoxAndButton(), returnMoneyStuff());
+        centerThis.getChildren().add(comboBoxAndButton());
 
         centerThis.setSpacing(20);
         centerThis.setPadding(new Insets(200,50,200,50));
-
-        return centerThis;
-    }
-    public VBox bpCenterSetup(TableView returnMoneyStuff)
-    {
-        VBox centerThis = new VBox();
-
-        centerThis.getChildren().addAll(comboBoxAndButton(), returnMoneyStuff);
-
-        centerThis.setSpacing(20);
-        centerThis.setPadding(new Insets(200, 50, 200, 50));
 
         return centerThis;
     }
@@ -654,15 +607,15 @@ public class MoneyManagerControls
         return netDistribute;
     }
 
-    public void setMoneyStuff(TableView moneyStuff)
+    public TableView getMoneyStuff()
     {
-        this.moneyStuff = moneyStuff;
+        return moneyStuff;
     }
-    public TableView returnMoneyStuff()
+    public void setMoneyStuff()
     {
         TableView ms = new TableView();
 
-        TableColumn date = new TableColumn("date");
+        TableColumn date = new TableColumn("Date");
         date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         date.setMinWidth(100);
         TableColumn account = new TableColumn("Account");
@@ -672,7 +625,7 @@ public class MoneyManagerControls
         balance.setCellValueFactory(new PropertyValueFactory<>("Balance"));
         balance.setMinWidth(100);
         TableColumn transactionType = new TableColumn("Transaction_Type");
-        transactionType.setCellValueFactory(new PropertyValueFactory<>("Transaction_Type"));
+        transactionType.setCellValueFactory(new PropertyValueFactory<>("TransactionType"));
         transactionType.setMinWidth(150);
         TableColumn transaction = new TableColumn("Transaction");
         transaction.setCellValueFactory(new PropertyValueFactory<>("Transaction"));
@@ -681,13 +634,10 @@ public class MoneyManagerControls
         comment.setCellValueFactory(new PropertyValueFactory<>("Comment"));
         comment.setMinWidth(100);
 
-        String bangBang[] = {"Blaow", "Sophisticated", "So Icy"};
-
+        //String bangBang[] = {"Blaow", "Sophisticated", "So Icy"};
 
         ms.getColumns().addAll(date, account, balance, transactionType, transaction, comment);
-        setMoneyStuff(ms);
-
-        return moneyStuff;
+        this.moneyStuff = ms;
     }
     public double stringToDouble(String percentageString)
     {

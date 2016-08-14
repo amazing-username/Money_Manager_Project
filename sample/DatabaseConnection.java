@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import org.mariadb.jdbc.Driver;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class DatabaseConnection
@@ -28,6 +28,8 @@ public class DatabaseConnection
 	private Statement listStatement;
 	private ResultSet statementExe;
 	private List<AccountInfo> accountDetails;
+	private Map<String, String> dbTableList;
+	final private String[] dbTableListValue = {"iPhone", "Personal Emergency", "Family Emergency", "Car", "Investing", "Clothing", "Supplement", "Chess Set", "Running", "Miscellaneous"};
 
 	public void setAccount(String account)
 	{
@@ -48,11 +50,21 @@ public class DatabaseConnection
 	 * switching but soon it will be used for adding values
 	 * to tables.
 	 */
+	public void setDbTableList()
+	{
+		AccountData bamb = new AccountData();
+		String list[] = bamb.getAccountList();
+		for (int i = 0; i < 10; i++)
+		{
+			System.out.println(list[i] + " " + dbTableListValue[i]);
+			dbTableList.put(list[i], dbTableListValue[i]);
+		}
+	}
 	public void insertsToTable(String date, String Account, String balance, String transaction_Type, String transaction, String comment) throws SQLException
 	{
 		setInsertStatement();
 		getInsertStatement().executeUpdate("insert into " + account + " (Date, Account, Balance, Transaction_Type, Transaction, Comment)"
-		+ " values (" + date + ", " + account + ", " + balance + ", " + transaction_Type + ", " + transaction + ", " + comment + ")");
+		+ " values (" + date + ", " + dbTableList.get(account) + ", " + balance + ", " + transaction_Type + ", " + transaction + ", " + comment + ")");
 
 	}
 
@@ -91,6 +103,5 @@ public class DatabaseConnection
             }
             return getAccountDetails();
         }
-
     }
 }

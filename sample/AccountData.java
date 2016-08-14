@@ -87,5 +87,9 @@ public class AccountData
     {
         return comboColumData;
     }
+    public String[] getAccountList()
+    {
+        return accountList;
+    }
 
 }

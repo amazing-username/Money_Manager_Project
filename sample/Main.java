@@ -15,7 +15,6 @@ package sample;
  */
 
 import javafx.application.Application;
-import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -30,9 +29,12 @@ public class Main extends Application
 	}
 
 	private BorderPane bp;
-	private Stage primaryStage;
 	private Scene scn;
 
+	public void setbp()
+	{
+		bp = new BorderPane();
+	}
 	public void setScn(BorderPane bp)
 	{
 		scn = new Scene(bp);
@@ -40,13 +42,10 @@ public class Main extends Application
 
 	public BorderPane getbp ()
 	{
-		bp = new BorderPane();
-
 		return bp;
 	}
 	public Scene getScn()
 	{
-
 		return scn;
 	}
 
@@ -62,13 +61,12 @@ public class Main extends Application
 			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
 			"Miscellaneous Fund"};
 
-		//BorderPane bp = new BorderPane();
-
+		setbp();
+		setScn(getbp());
 		getbp().setTop(controls.getmmMenuBar());
-		bp.setCenter(controls.bpCenterSetup());
-		//setBottom(controls.returnMoneyStuff());
-
-		setScn(bp);
+		getbp().setCenter(controls.bpCenterSetup());
+		controls.setMoneyStuff();
+		getbp().setBottom(controls.getMoneyStuff());
 
 		/* Switched from the setHeight and setWidth
 		 * methods to the minimum and maximum
@@ -83,14 +81,19 @@ public class Main extends Application
 			DatabaseConnection dbsql;
 
 			try {
-				//Main mm = new Main();
+				Main mm = new Main();
 				dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 
-				dbsql.setAccount( controls.getAccountDropDown().getValue() );
+				String key = (String) controls.getAccountDropDown().getValue();
+				String value = junkInTheTrunk.getComboColumData().get(key);
 
-				controls.returnMoneyStuff().getItems().clear();
-				controls.returnMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
-				getbp().setCenter(controls.returnMoneyStuff());
+				//System.out.println("Key: " + key + "\nValue: " + value);
+
+				dbsql.setAccount( value  );
+
+				controls.getMoneyStuff().getItems().clear();
+				controls.getMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
+				mm.getbp().setBottom(controls.getMoneyStuff());
 
 			}
 			catch (SQLException s)
