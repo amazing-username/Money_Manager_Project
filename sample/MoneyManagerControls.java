@@ -17,6 +17,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MoneyManagerControls
 {
@@ -25,6 +30,7 @@ public class MoneyManagerControls
     {
 
     }
+    PaycheckAndDeductions paycheckStuff = new PaycheckAndDeductions();
     private Button checkButton;
     private ComboBox accountDropDown;
     //Uninitialized menu items
@@ -374,7 +380,7 @@ public class MoneyManagerControls
 
     public HBox comboBoxAndButton()
     {
-        AccountData ad = new AccountData();
+        //AccountData ad = new AccountData();
         HBox topOfCenterThis = new HBox();
         //ad.setComboColumData();
 
@@ -533,12 +539,24 @@ public class MoneyManagerControls
         VBox vbAddMoneyLeft = new VBox();
         VBox vbAddMoneyCenter = new VBox();
         VBox vbAddMoneyRight = new VBox();
+        HBox subCenter = new HBox();
 
         Label paycheckLabel = new Label("Paycheck");
         Label deductionLabel = new Label("Deduction");
 
         TextField paycheckTextField = new TextField();
         TextField deductionTextField = new TextField();
+        TextField year = new TextField();
+        year.setPromptText("year");
+        TextField month = new TextField();
+        month.setPromptText("month");
+        TextField day = new TextField();
+        day.setPromptText("day");
+        TextField hour = new TextField();
+        hour.setPromptText("hour");
+        TextField minute = new TextField();
+        minute.setPromptText("minute");
+        subCenter.getChildren().addAll(year, month, day, hour, minute);
 
         Button doTheDeedButton = new Button(" x ");
         Button changeDeductionTypeButton = new Button(" - ");
@@ -555,7 +573,7 @@ public class MoneyManagerControls
         });
         doTheDeedButton.setOnAction(e ->
         {
-            PaycheckAndDeductions paycheckStuff = new PaycheckAndDeductions();
+
             paycheckStuff.setPaycheck(Double.parseDouble(paycheckTextField.getText()));
 
             if (changeDeductionTypeButton.getText().equalsIgnoreCase(" - "))
@@ -569,11 +587,18 @@ public class MoneyManagerControls
                 paycheckStuff.setNetDistribute(calculateNetDistributeWithPercentage(paycheckStuff.getPaycheck(), paycheckStuff.getDeductionPercentage()));
             }
 
-                paycheckLabel.setText(""+paycheckStuff.getNetDistribute());
+            //Testing account balance grab from database
+
+
+            //paycheckLabel.setText(""+paycheckStuff.getNetDistribute()); //Tests to see the net
+            paycheckLabel.setText(balance());
+           //Not finished yet
+            //paycheckStuff.setAccountAmounts(paycheckStuff.getNetDistribute(), year.getText(), month.getText(), day.getText(), month.getText(), day.getText());
+
         });
 
         vbAddMoneyLeft.getChildren().addAll(paycheckLabel, deductionLabel);
-        vbAddMoneyCenter.getChildren().addAll(paycheckTextField, deductionTextField);
+        vbAddMoneyCenter.getChildren().addAll(paycheckTextField, deductionTextField, subCenter);
         vbAddMoneyRight.getChildren().addAll(doTheDeedButton, changeDeductionTypeButton);
 
         vbAddMoneyLeft.setSpacing(35);
@@ -593,6 +618,34 @@ public class MoneyManagerControls
         addMoneyStage.setWidth(450);
         addMoneyStage.setHeight(500);
         addMoneyStage.show();
+    }
+    public String balance()
+    {
+        //String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
+        String balance = "40";
+        List<AccountInfo> aDetails = new ArrayList<>();
+
+        String que = "select * from " + "clothingAccount" + " order by Date Desc limit 1";
+        try(
+                Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                Statement listStatement = hahaha.createStatement();
+                ResultSet statementExe = listStatement.executeQuery(que);
+        )
+        {
+
+            while (statementExe.next())
+            {
+
+                balance = statementExe.getString("Balance");
+
+            }
+           // return aDetails;
+        }
+        catch (SQLException ss)
+        {
+            ss.printStackTrace();
+        }
+        return balance;
     }
     public double calculateNetDistributeWithNumber(double paycheck, double number)
     {

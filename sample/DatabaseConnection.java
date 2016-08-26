@@ -60,7 +60,7 @@ public class DatabaseConnection
 			dbTableList.put(list[i], dbTableListValue[i]);
 		}
 	}
-	public void insertsToTable(String date, String Account, String balance, String transaction_Type, String transaction, String comment) throws SQLException
+	public void insertsToTable(String date, String account, String balance, String transaction_Type, String transaction, String comment) throws SQLException
 	{
 		setInsertStatement();
 		getInsertStatement().executeUpdate("insert into " + account + " (Date, Account, Balance, Transaction_Type, Transaction, Comment)"
@@ -104,4 +104,29 @@ public class DatabaseConnection
             return getAccountDetails();
         }
     }
+	public String getBalanceOfAccount()
+	{
+		//String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
+		String balance = "40";
+		List<AccountInfo> aDetails = new ArrayList<>();
+
+		String que = "select * from " + getAccount() + " order by Date Desc limit 1";
+		try(
+				Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+				Statement listStatement = hahaha.createStatement();
+				ResultSet statementExe = listStatement.executeQuery(que);
+		)
+		{
+
+			while (statementExe.next())
+			{
+				balance = statementExe.getString("Balance");
+			}
+		}
+		catch (SQLException ss)
+		{
+			ss.printStackTrace();
+		}
+		return balance;
+	}
 }
