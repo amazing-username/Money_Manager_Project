@@ -573,7 +573,7 @@ public class MoneyManagerControls
         });
         doTheDeedButton.setOnAction(e ->
         {
-
+            DatabaseConnection dbc = new DatabaseConnection();
             paycheckStuff.setPaycheck(Double.parseDouble(paycheckTextField.getText()));
 
             if (changeDeductionTypeButton.getText().equalsIgnoreCase(" - "))
@@ -591,7 +591,7 @@ public class MoneyManagerControls
 
 
             //paycheckLabel.setText(""+paycheckStuff.getNetDistribute()); //Tests to see the net
-            paycheckLabel.setText(balance());
+            paycheckLabel.setText(dbc.getBalanceOfAccount("personalEmergencyAccount"));
            //Not finished yet
             //paycheckStuff.setAccountAmounts(paycheckStuff.getNetDistribute(), year.getText(), month.getText(), day.getText(), month.getText(), day.getText());
 

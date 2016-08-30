@@ -104,24 +104,23 @@ public class DatabaseConnection
             return getAccountDetails();
         }
     }
-	public String getBalanceOfAccount()
+	public String getBalanceOfAccount(String account)
 	{
 		//String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
 		String balance = "40";
 		List<AccountInfo> aDetails = new ArrayList<>();
 
-		String que = "select * from " + getAccount() + " order by Date Desc limit 1";
+		String que = "select * from " + "personalEmergencyAccount" + " order by Date Desc limit 1";
 		try(
 				Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 				Statement listStatement = hahaha.createStatement();
 				ResultSet statementExe = listStatement.executeQuery(que);
 		)
 		{
-
-			while (statementExe.next())
-			{
+			while (statementExe.next()) {
 				balance = statementExe.getString("Balance");
 			}
+			return balance;
 		}
 		catch (SQLException ss)
 		{
