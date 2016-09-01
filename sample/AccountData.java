@@ -32,6 +32,16 @@ public class AccountData
     private double chessSetAmount;
     private double runningAmount;
     private double miscellaneousAmount;
+    private double iPhoneBalance;
+    private double personalEmergencyBalance;
+    private double familyEmergencyBalance;
+    private double carBalance;
+    private double investingBalance;
+    private double clothingBalance;
+    private double supplementsBalance;
+    private double chessSetBalance;
+    private double runningBalance;
+    private double miscellaneousBalance;
     private double total;
     private String year;
     private String month;
@@ -114,6 +124,46 @@ public class AccountData
     {
         miscellaneousAmount = Math.floor(amount * percentage);
     }
+    public void setiPhoneBalance(double iPhoneBalance, double amount)
+    {
+        this.iPhoneBalance = iPhoneBalance + amount;
+    }
+    public void setPersonalEmergencyBalance(double personalEmergencyBalance, double amount)
+    {
+        this.personalEmergencyBalance = personalEmergencyBalance + amount;
+    }
+    public void setFamilyEmergencyBalance(double familyEmergencyBalance, double amount)
+    {
+        this.familyEmergencyBalance = familyEmergencyBalance + amount;
+    }
+    public void setCarBalance(double carBalance, double amount)
+    {
+        this.carBalance = carBalance + amount;
+    }
+    public void setInvestingBalance(double investingBalance, double amount)
+    {
+        this.investingBalance = investingBalance + amount;
+    }
+    public void setClothingBalance(double clothingBalance, double amount)
+    {
+        this.clothingBalance = clothingBalance + amount;
+    }
+    public void setSupplementsBalance(double supplementsBalance, double amount)
+    {
+        this.supplementsBalance = supplementsBalance + amount;
+    }
+    public void setChessSetBalance(double chessSetBalance, double amount)
+    {
+        this.chessSetBalance = chessSetBalance + amount;
+    }
+    public void setRunningBalance(double runningBalance, double amount)
+    {
+        this.runningBalance = runningBalance + amount;
+    }
+    public void setMiscellaneousBalance(double miscellaneousBalance, double amount)
+    {
+        this.miscellaneousBalance = miscellaneousBalance + amount;
+    }
     public void setYear(String year)
     {
         this.year = year;
@@ -147,6 +197,10 @@ public class AccountData
     }
     public void setMinute(String minute)
     {
+        if (Integer.parseInt(minute) == 0)
+        {
+            this.minute = "00";
+        }
         if (Integer.parseInt(minute) < 10)
         {
             this.minute = "0" + minute;
@@ -184,6 +238,10 @@ public class AccountData
         }
     }
 
+    public String[] getAccountListDB()
+    {
+        return accountListDB;
+    }
     public Map<Integer, String> getDateOfAccountTransaction()
     {
         return dateOfAccountTransaction;
@@ -249,6 +307,46 @@ public class AccountData
     {
         return miscellaneousAmount;
     }
+    public double getiPhoneBalance()
+    {
+        return iPhoneBalance;
+    }
+    public double getPersonalEmergencyBalance()
+    {
+        return personalEmergencyBalance;
+    }
+    public double getFamilyEmergencyBalance()
+    {
+        return familyEmergencyBalance;
+    }
+    public double getCarBalance()
+    {
+        return carBalance;
+    }
+    public double getInvestingBalance()
+    {
+        return investingBalance;
+    }
+    public double getClothingBalance()
+    {
+        return clothingBalance;
+    }
+    public double getSupplementsBalance()
+    {
+        return supplementsBalance;
+    }
+    public double getChessSetBalance()
+    {
+        return chessSetBalance;
+    }
+    public double getRunningBalance()
+    {
+        return runningBalance;
+    }
+    public double getMiscellaneousBalance()
+    {
+        return miscellaneousBalance;
+    }
     public String getYear()
     {
         return year;
@@ -272,6 +370,14 @@ public class AccountData
     public String getDate()
     {
         return date;
+    }
+    public String getType()
+    {
+        return type;
+    }
+    public String getComment()
+    {
+        return comment;
     }
 
     public Map<String, String> getComboColumData()

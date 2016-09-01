@@ -28,22 +28,14 @@ public class Main extends Application
 	
 	}
 
-	private BorderPane bp;
 	private Scene scn;
 
-	public void setbp()
-	{
-		bp = new BorderPane();
-	}
+
 	public void setScn(BorderPane bp)
 	{
 		scn = new Scene(bp);
 	}
 
-	public BorderPane getbp ()
-	{
-		return bp;
-	}
 	public Scene getScn()
 	{
 		return scn;
@@ -53,7 +45,6 @@ public class Main extends Application
 	public void start(Stage primaryStage) throws Exception
 	{
 
-		DatabaseConnection dbmmp = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 		MoneyManagerControls controls = new MoneyManagerControls();
 
 		String[] accounts = {"iPhone Fund", "Personal Emergency Fund",
@@ -61,18 +52,18 @@ public class Main extends Application
 			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
 			"Miscellaneous Fund"};
 
-		setbp();
-		setScn(getbp());
-		getbp().setTop(controls.getmmMenuBar());
-		getbp().setCenter(controls.bpCenterSetup());
+		//setbp();
+		setScn(controls.getbdp());
+		controls.getbdp().setTop(controls.getmmMenuBar());
+		controls.getbdp().setCenter(controls.bpCenterSetup());
 		controls.setMoneyStuff();
-		getbp().setBottom(controls.getMoneyStuff());
+		controls.getbdp().setBottom(controls.getMoneyStuff());
 
 		/* Switched from the setHeight and setWidth
 		 * methods to the minimum and maximum
 		 * equivalents.
 		 */
-
+		/**
 		controls.getCheckButton().setOnAction(e ->
 		{
 			AccountData junkInTheTrunk = new AccountData();
@@ -87,13 +78,12 @@ public class Main extends Application
 				String key = (String) controls.getAccountDropDown().getValue();
 				String value = junkInTheTrunk.getComboColumData().get(key);
 
-				//System.out.println("Key: " + key + "\nValue: " + value);
 
 				dbsql.setAccount( value  );
 
 				controls.getMoneyStuff().getItems().clear();
 				controls.getMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
-				mm.getbp().setBottom(controls.getMoneyStuff());
+				getbp().setBottom(controls.getMoneyStuff());
 
 			}
 			catch (SQLException s)
@@ -102,7 +92,7 @@ public class Main extends Application
 			}
 
 		});
-
+		*/
 		primaryStage.setMinHeight(900);
 		primaryStage.setMaxHeight(900);
 		primaryStage.setMinWidth(800);

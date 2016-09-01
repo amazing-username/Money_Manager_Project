@@ -1,10 +1,6 @@
 package sample;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +33,7 @@ public class DatabaseConnection
 	}
 	public void setInsertStatement() throws  SQLException
 	{
+		hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 		insertStatement = hahaha.createStatement();
 	}
 	public void setAccountDetails(ArrayList accountDetails)
@@ -66,6 +63,16 @@ public class DatabaseConnection
 		getInsertStatement().executeUpdate("insert into " + account + " (Date, Account, Balance, Transaction_Type, Transaction, Comment)"
 		+ " values (" + date + ", " + dbTableList.get(account) + ", " + balance + ", " + transaction_Type + ", " + transaction + ", " + comment + ")");
 
+	}
+	public void insertsToTable(String date, String[] accountNames, String[] accountNamesAccess, double[] accountBalances, String type, double[] accountAmounts, String comments) throws SQLException
+	{
+		setInsertStatement();
+
+		for (int i = 0; i < 10; i++)
+		{
+			getInsertStatement().executeUpdate("insert into " + accountNamesAccess[i] + "(Date, Account, Balance, Transaction_Type, Transaction, Comment)"
+					+ " values('" + date + "', '" + accountNames[i] + "', " + accountBalances[i] + ", '" + type + "', " + accountAmounts[i] + ", '" + comments + "')");
+		}
 	}
 
 	public String getAccount()
@@ -107,10 +114,9 @@ public class DatabaseConnection
 	public String getBalanceOfAccount(String account)
 	{
 		//String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
-		String balance = "40";
-		List<AccountInfo> aDetails = new ArrayList<>();
+		String balance = "";
 
-		String que = "select * from " + "personalEmergencyAccount" + " order by Date Desc limit 1";
+		String que = "select * from " + account + " order by Date Desc limit 1";
 		try(
 				Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 				Statement listStatement = hahaha.createStatement();

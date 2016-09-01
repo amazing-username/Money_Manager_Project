@@ -31,6 +31,7 @@ public class MoneyManagerControls
 
     }
     PaycheckAndDeductions paycheckStuff = new PaycheckAndDeductions();
+    BorderPane bdp = new BorderPane();
     private Button checkButton;
     private ComboBox accountDropDown;
     //Uninitialized menu items
@@ -188,7 +189,7 @@ public class MoneyManagerControls
     }
 
     //Menu bar accessor
-    public MenuBar getmmMenuBar()
+    public MenuBar getmmMenuBar() throws SQLException
     {
         //For File Menu
         setmmFileMenu(new Menu("File"));
@@ -210,7 +211,9 @@ public class MoneyManagerControls
         getAddPaycheck().setText("add paycheck");
         getAddPaycheck().setOnAction(e ->
         {
-            newWindowToAddPaycheck();
+
+                newWindowToAddPaycheck();
+
         });
         getManualMoneyTransfer().setText("transfer money");
         getChangePercentages().setText("change percentages");
@@ -233,6 +236,10 @@ public class MoneyManagerControls
 
         return mmMenuBar;
         }
+    public BorderPane getbdp()
+    {
+        return bdp;
+    }
     //Menu accessors
     public Menu getmmFileMenu()
     {
@@ -387,6 +394,33 @@ public class MoneyManagerControls
         setAccountDropDown(new ComboBox());
         getAccountDropDown().getItems().addAll(getAccountList());
         setCheckButton(new Button("^"));
+        getCheckButton().setOnAction(e ->
+        {
+            AccountData junkInTheTrunk = new AccountData();
+            junkInTheTrunk.setComboColumData();
+
+            DatabaseConnection dbsql;
+
+            try {
+                dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+
+                String key = (String) getAccountDropDown().getValue();
+                String value = junkInTheTrunk.getComboColumData().get(key);
+
+
+                dbsql.setAccount( value  );
+
+                getMoneyStuff().getItems().clear();
+                getMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
+                getbdp().setBottom(getMoneyStuff());
+
+            }
+            catch (SQLException s)
+            {
+                s.printStackTrace();
+            }
+
+        });
 
         topOfCenterThis.setSpacing(20);
         getAccountDropDown().setMinSize(650, 20);
@@ -591,10 +625,23 @@ public class MoneyManagerControls
 
 
             //paycheckLabel.setText(""+paycheckStuff.getNetDistribute()); //Tests to see the net
-            paycheckLabel.setText(dbc.getBalanceOfAccount("personalEmergencyAccount"));
-           //Not finished yet
-            //paycheckStuff.setAccountAmounts(paycheckStuff.getNetDistribute(), year.getText(), month.getText(), day.getText(), month.getText(), day.getText());
+            /*
+             *
+             * Need to do:
+             * Get the paycheck amount, deduction (whether it be percentage or numerical), and date (month, day, year, hour, minute)
+             * with that information calculate the amount of money that will go into each account and insert that amount into the
+             * the database.
+             *
+             *
+             */
 
+            try {
+                paycheckStuff.setAccountAmounts(paycheckStuff.getNetDistribute(), year.getText(), month.getText(), day.getText(), hour.getText(), minute.getText());
+            }
+            catch (SQLException sl)
+            {
+                sl.printStackTrace();
+            }
         });
 
         vbAddMoneyLeft.getChildren().addAll(paycheckLabel, deductionLabel);
@@ -687,7 +734,6 @@ public class MoneyManagerControls
         comment.setCellValueFactory(new PropertyValueFactory<>("Comment"));
         comment.setMinWidth(100);
 
-        //String bangBang[] = {"Blaow", "Sophisticated", "So Icy"};
 
         ms.getColumns().addAll(date, account, balance, transactionType, transaction, comment);
         this.moneyStuff = ms;
