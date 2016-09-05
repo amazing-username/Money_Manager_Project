@@ -7,7 +7,7 @@ public class AccountPercentages
 
     }
 
-    private double iPhoneBatteryFundPercentage = .11;
+    private double iPhoneBatteryFundPercentage = .03;
     private double personalEmergencyFundPercentage = .15;
     private double familyEmergencyFundPercentage = .10;
     private double carFundPercentage = .11;
@@ -16,7 +16,7 @@ public class AccountPercentages
     private double supplementFundPercentage = .08;
     private double chessSetFundPercentage = .04;
     private double runningFundPercentage = .10;
-    private double miscellaneousFundPercentage = .10;
+    private double miscellaneousFundPercentage = .18;
 
     public void setiPhoneBatteryFundPercentage(double percentage)
     {
