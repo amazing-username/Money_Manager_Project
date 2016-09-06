@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.16-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.17-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: moneydatabase
 -- ------------------------------------------------------
--- Server version	10.1.16-MariaDB
+-- Server version	10.1.17-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +38,7 @@ CREATE TABLE `carAccount` (
 
 LOCK TABLES `carAccount` WRITE;
 /*!40000 ALTER TABLE `carAccount` DISABLE KEYS */;
-INSERT INTO `carAccount` VALUES ('2016-06-10-12-00','Car',135,'+',135,'Paycheck'),('2016-06-25-12-00','Car',142,'+',7,'Paycheck'),('2016-07-09-12-00','Car',157,'+',15,'Paycheck'),('2016-08-01-12-00','Car',180,'+',23,'Paycheck'),('2016-08-10-12-00','Car',193,'+',13,'Paycheck'),('2016-08-25-12-00','Car',211,'+',18,'Paycheck'),('2016-09-02-01-00','Car',222,'+',11,'Paycheck');
+INSERT INTO `carAccount` VALUES ('2016-06-10-12-00','Car',135,'+',135,'Paycheck'),('2016-06-25-12-00','Car',142,'+',7,'Paycheck'),('2016-07-09-12-00','Car',157,'+',15,'Paycheck'),('2016-08-01-12-00','Car',180,'+',23,'Paycheck'),('2016-08-10-12-00','Car',193,'+',13,'Paycheck'),('2016-08-25-12-00','Car',211,'+',18,'Paycheck'),('2016-09-02-01-00','Car',222,'+',11,'Paycheck'),('2016-09-14-12-00','Car',218,'-',4,'Food With Friend');
 /*!40000 ALTER TABLE `carAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `familyEmergencyAccount` (
 
 LOCK TABLES `familyEmergencyAccount` WRITE;
 /*!40000 ALTER TABLE `familyEmergencyAccount` DISABLE KEYS */;
-INSERT INTO `familyEmergencyAccount` VALUES ('2016-06-10-12-00','Family Emergency',142,'+',142,'Paycheck'),('2016-06-25-12-00','Family Emergency',148,'+',6,'Paycheck'),('2016-07-09-12-00','Family Emergency',166.6,'+',18.6,'Paycheck'),('2016-08-01-12-00','Family Emergency',180.6,'+',14,'Paycheck'),('2016-08-10-12-00','Family Emergency',192.6,'+',12,'Paycheck'),('2016-08-25-12-00','Family Emergency',208.6,'+',16,'Paycheck'),('2016-09-02-01-00','Family Emergency',218.6,'+',10,'Paycheck');
+INSERT INTO `familyEmergencyAccount` VALUES ('2016-06-10-12-00','Family Emergency',142,'+',142,'Paycheck'),('2016-06-25-12-00','Family Emergency',148,'+',6,'Paycheck'),('2016-07-09-12-00','Family Emergency',166.6,'+',18.6,'Paycheck'),('2016-08-01-12-00','Family Emergency',180.6,'+',14,'Paycheck'),('2016-08-10-12-00','Family Emergency',192.6,'+',12,'Paycheck'),('2016-08-25-12-00','Family Emergency',208.6,'+',16,'Paycheck'),('2016-09-02-01-00','Family Emergency',218.6,'+',10,'Paycheck'),('2016-09-16-14-00','Family Emergency',198.6,'-',22,'Grocceries'),('2016-09-16-14-30','Family Emergency',196.6,'-',2,'Bill Cover');
 /*!40000 ALTER TABLE `familyEmergencyAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +173,7 @@ CREATE TABLE `investingAccount` (
 
 LOCK TABLES `investingAccount` WRITE;
 /*!40000 ALTER TABLE `investingAccount` DISABLE KEYS */;
-INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck'),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck'),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck'),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck'),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck'),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck'),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck');
+INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck'),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck'),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck'),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck'),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck'),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck'),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck'),('2016-09-10-14-57','Investing',124.02,'-',19.98,'Book Rental'),('2016-09-11-11-35','Investing',118.64,'-',5.38,'School Supplies');
 /*!40000 ALTER TABLE `investingAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,7 +227,7 @@ CREATE TABLE `personalEmergencyAccount` (
 
 LOCK TABLES `personalEmergencyAccount` WRITE;
 /*!40000 ALTER TABLE `personalEmergencyAccount` DISABLE KEYS */;
-INSERT INTO `personalEmergencyAccount` VALUES ('2016-06-10-12-00','Personal Emergency',339,'+',339,'Paycheck'),('2016-06-25-12-00','Personal Emergency',355.78,'+',16.78,'Paycheck'),('2016-07-09-12-00','Personal Emergency',376.78,'+',21,'Paycheck'),('2016-08-01-12-00','Personal Emergency',397.78,'+',21,'Paycheck'),('2016-08-10-12-00','Personal Emergency',415.78,'+',18,'Paycheck'),('2016-08-25-12-00','Personal Emergency',440.78,'+',25,'Paycheck'),('2016-09-02-01-00','Personal Emergency',455.78,'+',15,'Paycheck');
+INSERT INTO `personalEmergencyAccount` VALUES ('2016-06-10-12-00','Personal Emergency',339,'+',339,'Paycheck'),('2016-06-25-12-00','Personal Emergency',355.78,'+',16.78,'Paycheck'),('2016-07-09-12-00','Personal Emergency',376.78,'+',21,'Paycheck'),('2016-08-01-12-00','Personal Emergency',397.78,'+',21,'Paycheck'),('2016-08-10-12-00','Personal Emergency',415.78,'+',18,'Paycheck'),('2016-08-25-12-00','Personal Emergency',440.78,'+',25,'Paycheck'),('2016-09-02-01-00','Personal Emergency',455.78,'+',15,'Paycheck'),('2016-09-14-12-00','Personal Emergency',400.78,'-',55,'House Bills'),('2016-09-20-16-40','Personal Emergency',392.78,'-',8,'Food With Friend');
 /*!40000 ALTER TABLE `personalEmergencyAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +254,7 @@ CREATE TABLE `runningAccount` (
 
 LOCK TABLES `runningAccount` WRITE;
 /*!40000 ALTER TABLE `runningAccount` DISABLE KEYS */;
-INSERT INTO `runningAccount` VALUES ('2016-06-10-12-00','Running',26,'+',26,'Paycheck'),('2016-06-25-12-00','Running',32,'+',6,'Paycheck'),('2016-07-09-12-00','Running',46,'+',14,'Paycheck'),('2016-08-01-12-00','Running',60,'+',14,'Paycheck'),('2016-08-06-12-00','Running',0,'-',60,'Nike Purchase'),('2016-08-10-12-00','Running',12,'+',12,'Paycheck'),('2016-08-25-12-00','Running',28,'+',16,'Paycheck'),('2016-09-02-01-00','Running',38,'+',10,'Paycheck');
+INSERT INTO `runningAccount` VALUES ('2016-06-10-12-00','Running',26,'+',26,'Paycheck'),('2016-06-25-12-00','Running',32,'+',6,'Paycheck'),('2016-07-09-12-00','Running',46,'+',14,'Paycheck'),('2016-08-01-12-00','Running',60,'+',14,'Paycheck'),('2016-08-06-12-00','Running',0,'-',60,'Nike Purchase'),('2016-08-10-12-00','Running',12,'+',12,'Paycheck'),('2016-08-25-12-00','Running',28,'+',16,'Paycheck'),('2016-09-02-01-00','Running',38,'+',10,'Paycheck'),('2016-09-05-17-00','Running',11,'-',27,'Asics Order');
 /*!40000 ALTER TABLE `runningAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-04 21:27:40
+-- Dump completed on 2016-09-20 17:39:38

@@ -2,6 +2,7 @@ package sample;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,8 @@ public class DatabaseConnection
 	private ResultSet statementExe;
 	private List<AccountInfo> accountDetails;
 	private Map<String, String> dbTableList;
+	private List accountListPre = new ArrayList();
+	private List accountListPost = new ArrayList();
 	final private String[] dbTableListValue = {"iPhone", "Personal Emergency", "Family Emergency", "Car", "Investing", "Clothing", "Supplement", "Chess Set", "Running", "Miscellaneous"};
 
 	public void setAccount(String account)
@@ -79,6 +82,14 @@ public class DatabaseConnection
 	{
 		return account;
 	}
+	public List getAccountListPre()
+	{
+		return accountListPre;
+	}
+	public List getAccountListPost()
+	{
+		return accountListPost;
+	}
 	public List getAccountDetails()
 	{
 		return accountDetails;
@@ -111,7 +122,7 @@ public class DatabaseConnection
             return getAccountDetails();
         }
     }
-	public String getBalanceOfAccount(String account)
+	public String getBalanceOfAccount(String account) throws SQLException
 	{
 		//String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
 		String balance = "";
@@ -134,4 +145,56 @@ public class DatabaseConnection
 		}
 		return balance;
 	}
+	public void getAccountList()
+	{
+		String accountList = "show tables from moneydatabase";
+
+		try(
+				Statement sonStatement = hahaha.createStatement();
+				ResultSet example = sonStatement.executeQuery(accountList);
+				)
+		{
+			while (example.next())
+			{
+				String tables = example.getString("Tables_in_moneydatabase");
+				this.accountListPre.add(tables);
+				//System.out.println(tables);
+
+				//System.out.println(tables.length());
+				printAccountNamesWithoutAccount(tables, tables.length());
+			}
+
+			//System.out.println("\n\nData pulled and put into a data structure and iterated: ");
+
+
+		}
+		catch (SQLException s)
+		{
+			s.printStackTrace();
+		}
+	}
+	public void printAccountNamesWithoutAccount(String preName, int lettersInName) {
+
+
+		final int ThereAreSevenLettersInTheWordAccount = 7;
+		int loops = lettersInName - ThereAreSevenLettersInTheWordAccount;
+		String postName = "";
+
+		for (int i = 0; i < loops; i++)
+		{
+			postName = postName + preName.charAt(i);
+			//System.out.println("Account: " + postName);
+
+			if (i == (loops -1)) {
+				this.accountListPost.add(postName);
+			}
+		}
+
+		Iterator it = this.accountListPost.iterator();
+
+		//System.out.println("\n\n\nAccounts without the 'Account' in the name: ");
+
+
+	}
+
 }

@@ -16,10 +16,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -37,7 +36,7 @@ public class MoneyManagerControls
     //Uninitialized menu items
     private Menu mmFileMenu, mmEditMenu, mmHelpMenu;
     private MenuBar mmMenuBar;
-    private MenuItem saveToDatabase, closeApplication, addPaycheck, manualMoneyTransfer,
+    private MenuItem closeApplication, addPaycheck, manualMoneyTransfer,
             changePercentages, aboutApplication;
 
     private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
@@ -49,10 +48,7 @@ public class MoneyManagerControls
     familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
     clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
     runningFundPercentageTextField, miscellaneousFundPercentageTextField;
-    final private String accountList[] = {"iPhone Account", "Personal Emergency Account", "Family Emergency Account",
-            "Car Account", "Investing Account", "Clothing Account", "Supplement Account",
-            "Chess Set Account", "Running Account", "Miscellaneous Account"
-    };
+    private String accountList[];
 
     //Menu bar mutator
     public void setmmMenuBar(MenuBar mmMenuBar)
@@ -73,10 +69,6 @@ public class MoneyManagerControls
         this.mmHelpMenu = mmHelpMenu;
     }
     //Menu item mutators
-    public void setSaveToDatabase(MenuItem saveToDatabase)
-    {
-        this.saveToDatabase = saveToDatabase;
-    }
     public void setCloseApplication(MenuItem closeApplication)
     {
         this.closeApplication = closeApplication;
@@ -187,21 +179,30 @@ public class MoneyManagerControls
     {
         this.checkButton = checkButton;
     }
+    public void setAccountList(List list)
+    {
+        Iterator it = list.iterator();
+        this.accountList = new String[list.size()];
+        int i = 0;
+        while (it.hasNext())
+        {
+            this.accountList[i] = (String) it.next();
+            i++;
+        }
+    }
 
     //Menu bar accessor
     public MenuBar getmmMenuBar() throws SQLException
     {
         //For File Menu
         setmmFileMenu(new Menu("File"));
-        setSaveToDatabase(new MenuItem());
         setCloseApplication(new MenuItem());
-        getSaveToDatabase().setText("save");
         getCloseApplication().setText("close");
         getCloseApplication().setOnAction(e ->
         {
             System.exit(0);
         });
-        getmmFileMenu().getItems().addAll(getSaveToDatabase(), getCloseApplication());
+        getmmFileMenu().getItems().add(getCloseApplication());
 
         //For Edit Menu
         setmmEditMenu(new Menu("Edit"));
@@ -216,6 +217,10 @@ public class MoneyManagerControls
 
         });
         getManualMoneyTransfer().setText("transfer money");
+        getManualMoneyTransfer().setOnAction( e ->
+        {
+            System.out.println("Work In Progress...");
+        });
         getChangePercentages().setText("change percentages");
         getChangePercentages().setOnAction( e ->
         {
@@ -254,10 +259,6 @@ public class MoneyManagerControls
         return mmHelpMenu;
     }
     //Menu item accessors
-    public MenuItem getSaveToDatabase()
-    {
-        return saveToDatabase;
-    }
     public MenuItem getCloseApplication()
     {
         return closeApplication;
@@ -390,23 +391,39 @@ public class MoneyManagerControls
         //AccountData ad = new AccountData();
         HBox topOfCenterThis = new HBox();
         //ad.setComboColumData();
+        DatabaseConnection dc;
+
+        try{
+        dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+
+        dc.getAccountList();
+        setAccountList(dc.getAccountListPost());
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
 
         setAccountDropDown(new ComboBox());
         getAccountDropDown().getItems().addAll(getAccountList());
         setCheckButton(new Button("^"));
         getCheckButton().setOnAction(e ->
         {
-            AccountData junkInTheTrunk = new AccountData();
-            junkInTheTrunk.setComboColumData();
+            //AccountData junkInTheTrunk = new AccountData();
+           // junkInTheTrunk.setComboColumData();
 
             DatabaseConnection dbsql;
 
             try {
                 dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 
-                String key = (String) getAccountDropDown().getValue();
-                String value = junkInTheTrunk.getComboColumData().get(key);
+                //String key = (String) getAccountDropDown().getValue();
+                //String value = junkInTheTrunk.getComboColumData().get(key);
+                String value = (String) getAccountDropDown().getValue() + "Account";
+                //System.out.println(value);
 
+
+                dbsql.getAccountList();
 
                 dbsql.setAccount( value  );
 
