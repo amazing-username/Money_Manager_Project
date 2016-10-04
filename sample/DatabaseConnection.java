@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 
 public class DatabaseConnection
@@ -25,7 +26,7 @@ public class DatabaseConnection
 	private Statement listStatement;
 	private ResultSet statementExe;
 	private List<AccountInfo> accountDetails;
-	private Map<String, String> dbTableList;
+	private Map<String, String> dbTableList = new HashMap<String, String>();
 	private List accountListPre = new ArrayList();
 	private List accountListPost = new ArrayList();
 	final private String[] dbTableListValue = {"iPhone", "Personal Emergency", "Family Emergency", "Car", "Investing", "Clothing", "Supplement", "Chess Set", "Running", "Miscellaneous"};
@@ -52,12 +53,19 @@ public class DatabaseConnection
 	 */
 	public void setDbTableList()
 	{
-		AccountData bamb = new AccountData();
-		String list[] = bamb.getAccountList();
-		for (int i = 0; i < 10; i++)
+		Iterator itPre = getAccountListPre().iterator();
+		Iterator itPost = getAccountListPost().iterator();
+
+		while (itPre.hasNext()) //&& itPost.hasNext())
 		{
-			System.out.println(list[i] + " " + dbTableListValue[i]);
-			dbTableList.put(list[i], dbTableListValue[i]);
+			String key = (String) itPost.next();
+			//System.out.println(key);
+
+			String value = (String) itPre.next();
+			//System.out.println("Values:  " + value);
+			dbTableList.put(key, value);
+			//System.out.println("Size of data structure: " + dbTableList.size());
+			//System.out.println("Value of running account: " + dbTableList.get(key));
 		}
 	}
 	public void insertsToTable(String date, String account, String balance, String transaction_Type, String transaction, String comment) throws SQLException
@@ -93,6 +101,10 @@ public class DatabaseConnection
 	public List getAccountDetails()
 	{
 		return accountDetails;
+	}
+	public Map getDbTableList()
+	{
+		return dbTableList;
 	}
 	public Statement getInsertStatement()
 	{
@@ -190,11 +202,27 @@ public class DatabaseConnection
 			}
 		}
 
-		Iterator it = this.accountListPost.iterator();
+		setDbTableList();
 
 		//System.out.println("\n\n\nAccounts without the 'Account' in the name: ");
-
-
 	}
+	public double getAccountPercentages(String accountName) throws SQLException
+	{
+		//System.out.println("Account Name: " + accountName);
+		String que = "select Percent from " + accountName + " limit 1";
+		try(
+				Statement listStatement = hahaha.createStatement();
+				ResultSet statementExe = listStatement.executeQuery(que);
+		)
+		{
+			setAccountDetails(new ArrayList<>());
+			while (statementExe.next())
+			{
+				String percent = statementExe.getString("Percent");
+				accountName = percent;
 
+			}
+			return Double.parseDouble(accountName);
+		}
+	}
 }

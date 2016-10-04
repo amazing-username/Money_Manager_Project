@@ -1,5 +1,10 @@
 package sample;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class AccountPercentages
 {
     public AccountPercentages()
@@ -7,97 +12,32 @@ public class AccountPercentages
 
     }
 
-    private double iPhoneBatteryFundPercentage = .03;
-    private double personalEmergencyFundPercentage = .15;
-    private double familyEmergencyFundPercentage = .10;
-    private double carFundPercentage = .11;
-    private double investingFundPercentage = .09;
-    private double clothingFundPercentage = .12;
-    private double supplementFundPercentage = .08;
-    private double chessSetFundPercentage = .04;
-    private double runningFundPercentage = .10;
-    private double miscellaneousFundPercentage = .18;
-
-    public void setiPhoneBatteryFundPercentage(double percentage)
-    {
-        this.iPhoneBatteryFundPercentage = percentage;
-    }
-    public void setPersonalEmergencyFundPercentage(double percentage)
-    {
-        this.personalEmergencyFundPercentage = percentage;
-    }
-    public void setFamilyEmergencyFundPercentage(double percentage)
-    {
-        this.familyEmergencyFundPercentage = percentage;
-    }
-    public void setCarFundPercentage(double percentage)
-    {
-        this.carFundPercentage = percentage;
-    }
-    public void setInvestingFundPercentage(double percentage)
-    {
-        this.investingFundPercentage = percentage;
-    }
-    public void setClothingFundPercentage(double percentage)
-    {
-        this.clothingFundPercentage = percentage;
-    }
-    public void setSupplementFundPercentage(double percentage)
-    {
-        this.supplementFundPercentage = percentage;
-    }
-    public void setChessSetFundPercentage(double percentage)
-    {
-        this.chessSetFundPercentage = percentage;
-    }
-    public void setRunningFundPercentage(double percentage)
-    {
-        this.runningFundPercentage = percentage;
-    }
-    public void setMiscellaneousFundPercentage(double percentage)
-    {
-        this.miscellaneousFundPercentage = percentage;
-    }
+    private Map<String, Double> databaseNameToPercent;
 
 
-    public double getiPhoneBatteryFundPercentage()
+    public void setDatabaseNameToPercent() throws SQLException
     {
-        return iPhoneBatteryFundPercentage;
+        this.databaseNameToPercent = new HashMap<String, Double>();
+        try
+        {
+            DatabaseConnection dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            dbsql.getAccountList();
+
+            Iterator it = dbsql.getAccountListPre().iterator();
+            while (it.hasNext())
+            {
+                String key = (String) it.next();
+                //System.out.println("Key: " + key);
+                databaseNameToPercent.put(key, dbsql.getAccountPercentages(key));
+            }
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
-    public double getPersonalEmergencyFundPercentage()
+    public Map<String, Double> getDatabaseNameToPercent()
     {
-        return personalEmergencyFundPercentage;
-    }
-    public double getFamilyEmergencyFundPercentage()
-    {
-        return familyEmergencyFundPercentage;
-    }
-    public double getCarFundPercentage()
-    {
-        return carFundPercentage;
-    }
-    public double getInvestingFundPercentage()
-    {
-        return investingFundPercentage;
-    }
-    public double getClothingFundPercentage()
-    {
-        return clothingFundPercentage;
-    }
-    public double getSupplementFundPercentage()
-    {
-        return supplementFundPercentage;
-    }
-    public double getChessSetFundPercentage()
-    {
-        return chessSetFundPercentage;
-    }
-    public double getRunningFundPercentage()
-    {
-        return runningFundPercentage;
-    }
-    public double getMiscellaneousFundPercentage()
-    {
-        return miscellaneousFundPercentage;
+        return databaseNameToPercent;
     }
 }

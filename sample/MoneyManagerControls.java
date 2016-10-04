@@ -459,29 +459,11 @@ public class MoneyManagerControls
     }
     public void listCurrentPercentages(AccountPercentages percentageStorage)
     {
-        getiPhoneFundPercentageTextField().setText("" + (percentageStorage.getiPhoneBatteryFundPercentage() * 100));
-        getPersonalEmergencyFundPercentageTextField().setText("" + (percentageStorage.getPersonalEmergencyFundPercentage() * 100));
-        getFamilyEmergencyFundPercentageTextField().setText("" + (percentageStorage.getFamilyEmergencyFundPercentage() * 100));
-        getCarFundPercentageTextField().setText("" + (percentageStorage.getCarFundPercentage() * 100));
-        getInvestingFundPercentageTextField().setText("" + (percentageStorage.getInvestingFundPercentage() * 100));
-        getClothingFundPercentageTextField().setText("" + (percentageStorage.getClothingFundPercentage() * 100));
-        getSupplementFundPercentageTextField().setText("" + (percentageStorage.getSupplementFundPercentage() * 100));
-        getChessSetFundPercentageTextField().setText("" + (percentageStorage.getChessSetFundPercentage() * 100));
-        getRunningFundPercentageTextField().setText("" + (percentageStorage.getRunningFundPercentage() * 100));
-        getMiscellaneousFundPercentageTextField().setText("" + (percentageStorage.getMiscellaneousFundPercentage() * 100));
+
     }
     public void setUpdatePercentages(AccountPercentages percentagesStorage)
     {
-        percentagesStorage.setiPhoneBatteryFundPercentage(stringToDouble(getiPhoneFundPercentageTextField().getText()));
-        percentagesStorage.setPersonalEmergencyFundPercentage(stringToDouble(getPersonalEmergencyFundPercentageTextField().getText()));
-        percentagesStorage.setFamilyEmergencyFundPercentage(stringToDouble(getFamilyEmergencyFundPercentageTextField().getText()));
-        percentagesStorage.setCarFundPercentage(stringToDouble(getCarFundPercentageTextField().getText()));
-        percentagesStorage.setInvestingFundPercentage(stringToDouble(getInvestingFundPercentageTextField().getText()));
-        percentagesStorage.setClothingFundPercentage(stringToDouble(getClothingFundPercentageTextField().getText()));
-        percentagesStorage.setSupplementFundPercentage(stringToDouble(getSupplementFundPercentageTextField().getText()));
-        percentagesStorage.setChessSetFundPercentage(stringToDouble(getChessSetFundPercentageTextField().getText()));
-        percentagesStorage.setRunningFundPercentage(stringToDouble(getRunningFundPercentageTextField().getText()));
-        percentagesStorage.setMiscellaneousFundPercentage(stringToDouble(getMiscellaneousFundPercentageTextField().getText()));
+
     }
     public void newWindowToChangePercentages()
     {
@@ -489,8 +471,16 @@ public class MoneyManagerControls
         BorderPane percentageBorderPane = new BorderPane();
         AccountPercentages percentageStorage = new AccountPercentages();
 
+        ComboBox cmbList = new ComboBox();
+        Button listPercent = new Button();
+        Button updatePercent = new Button();
+        TextField displayPercent = new TextField();
+        displayPercent.setPromptText("66.6%");
 
-        VBox percentageLabels = new VBox();
+        cmbList.getItems().addAll(getAccountList());
+
+
+        HBox percentageGroupOne = new HBox();
 
         setiPhoneFundPercentageLabel(new Label("iPhone Percentage"));
         setPersonalEmergencyFundPercentageLabel(new Label("Personal Emergency Percentage"));
@@ -503,14 +493,17 @@ public class MoneyManagerControls
         setRunningFundPercentageLabel(new Label("Running Percentage"));
         setMiscellaneousFundPercentageLabel(new Label("Miscellaneous Percentage"));
 
+        /**
         percentageLabels.getChildren().addAll(getiPhoneFundPercentageLabel(), getPersonalEmergencyFundPercentageLabel(),
                 getFamilyEmergencyFundPercentageLabel(), getCarFundPercentageLabel(), getInvestingFundPercentageLabel(),
                 getClothingFundPercentageLabel(), getSupplementFundPercentageLabel(), getChessSetFundPercentageLabel(),
                 getRunningFundPercentageLabel(), getMiscellaneousFundPercentageLabel());
-        percentageLabels.setPadding(new Insets(10, 10, 10, 10));
-        percentageLabels.setSpacing(20);
+        */
+        percentageGroupOne.getChildren().addAll(cmbList, listPercent);
+        percentageGroupOne.setPadding(new Insets(10, 10, 10, 10));
+        percentageGroupOne.setSpacing(20);
 
-        VBox percentageTextFields = new VBox();
+        HBox percentageGroupTwo = new HBox();
 
         setiPhoneFundPercentageTextField(new TextField());
         getiPhoneFundPercentageTextField().setPromptText("Enter Percentage");
@@ -533,15 +526,19 @@ public class MoneyManagerControls
         setMiscellaneousFundPercentageTextField(new TextField());
         getMiscellaneousFundPercentageTextField().setPromptText("Enter Percentage");
 
+        /**
         percentageTextFields.getChildren().addAll(getiPhoneFundPercentageTextField(), getPersonalEmergencyFundPercentageTextField(),
                 getFamilyEmergencyFundPercentageTextField(), getCarFundPercentageTextField(), getInvestingFundPercentageTextField(),
                 getClothingFundPercentageTextField(), getSupplementFundPercentageTextField(), getChessSetFundPercentageTextField(),
                 getRunningFundPercentageTextField(), getMiscellaneousFundPercentageTextField());
         percentageTextFields.setPadding(new Insets(10, 10, 10, 10));
         percentageTextFields.setSpacing(10);
+        */
+        percentageGroupTwo.getChildren().addAll(displayPercent, updatePercent);
 
-
+        MenuItem closePercentages;
         Menu percentageEditMenu = new Menu("Edit");
+        /**
         MenuItem currentPercentages, updatePercentages, closePercentages;
 
         currentPercentages = new MenuItem("Load Current Percentages");
@@ -554,32 +551,62 @@ public class MoneyManagerControls
         {
             setUpdatePercentages(percentageStorage);
         });
+         */
         closePercentages = new MenuItem("Close Percentages Window");
         closePercentages.setOnAction(e ->
         {
             percentageStage.close();
         });
+        listPercent.setOnAction(e ->
+        {
+            try
+            {
+                AccountPercentages ap = new AccountPercentages();
+                DatabaseConnection dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 
-        percentageEditMenu.getItems().addAll(currentPercentages, updatePercentages, closePercentages);
+                percentageInformation(ap, dbsql);
+                //dbsql.setDbTableList();
+                String accountNameFromComboBox = (String) cmbList.getValue();
+                //System.out.println(accountNameFromComboBox);
+                String accountNameFromDatabase = (String) dbsql.getDbTableList().get(accountNameFromComboBox);
+                //System.out.println("Account from database: " + accountNameFromDatabase);
 
-        VBox percentageSign = new VBox();
+                //double percent = dbsql.getAccountPercentages(accountNameFromDatabase);
+                double percent = ap.getDatabaseNameToPercent().get(accountNameFromDatabase);
+                //System.out.println(percent);
+                displayPercent.setText("" + percent);
+                //displayPercent.setText("" + dbsql.getAccountPercentages(  accountNameFromDatabase);
+            }
+            catch (SQLException s) {
+                s.printStackTrace();
+            }
+        });
+
+        percentageEditMenu.getItems().add(closePercentages);
+
+        VBox percentageGroup = new VBox();
+        /**
         for (int i = 0; i < 10; i++)
         {
-            percentageSign.getChildren().add(i, new Label("%"));
+            percentageGroup.getChildren().add(i, new Label("%"));
         }
-        percentageSign.setSpacing(21);
-        percentageSign.setPadding(new Insets(10, 10, 10, 10));
+        */
+        percentageGroup.getChildren().addAll(percentageGroupOne, percentageGroupTwo);
+        percentageGroup.setSpacing(21);
+        percentageGroup.setPadding(new Insets(10, 10, 10, 10));
 
         percentageBorderPane.setTop(new MenuBar(percentageEditMenu));
-        percentageBorderPane.setLeft(percentageLabels);
-        percentageBorderPane.setCenter(percentageTextFields);
-        percentageBorderPane.setRight(percentageSign);
+        /**
+        percentageBorderPane.setLeft(percentageGroupOne);
+        percentageBorderPane.setCenter(percentageGroupTwo;
+        */
+        percentageBorderPane.setRight(percentageGroup);
 
 
         Scene percentageScene = new Scene(percentageBorderPane);
 
-        percentageStage.setMinHeight(400);
-        percentageStage.setMinWidth(300);
+        percentageStage.setMinHeight(300);
+        percentageStage.setMinWidth(200);
         percentageStage.setScene(percentageScene);
         percentageStage.show();
     }
@@ -637,20 +664,6 @@ public class MoneyManagerControls
                 paycheckStuff.setDeductionPercentage(Double.parseDouble(deductionTextField.getText()));
                 paycheckStuff.setNetDistribute(calculateNetDistributeWithPercentage(paycheckStuff.getPaycheck(), paycheckStuff.getDeductionPercentage()));
             }
-
-            //Testing account balance grab from database
-
-
-            //paycheckLabel.setText(""+paycheckStuff.getNetDistribute()); //Tests to see the net
-            /*
-             *
-             * Need to do:
-             * Get the paycheck amount, deduction (whether it be percentage or numerical), and date (month, day, year, hour, minute)
-             * with that information calculate the amount of money that will go into each account and insert that amount into the
-             * the database.
-             *
-             *
-             */
 
             try {
                 paycheckStuff.setAccountAmounts(paycheckStuff.getNetDistribute(), year.getText(), month.getText(), day.getText(), hour.getText(), minute.getText());
@@ -727,6 +740,18 @@ public class MoneyManagerControls
     public TableView getMoneyStuff()
     {
         return moneyStuff;
+    }
+    public void percentageInformation(AccountPercentages ap, DatabaseConnection dbsql) throws SQLException
+    {
+        try
+        {
+            ap.setDatabaseNameToPercent();
+            dbsql.getAccountList();
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
     public void setMoneyStuff()
     {

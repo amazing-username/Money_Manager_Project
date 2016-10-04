@@ -47,16 +47,6 @@ public class PaycheckAndDeductions
         setAccountNames(ad.getAccountListDB(), accountNames);
         setAccountNames(ad.getAccountList(), accountNamesAccess);
 
-        ad.setiPhoneAmount(paycheck, ap.getiPhoneBatteryFundPercentage());
-        ad.setPersonalEmergencyAmount(paycheck, ap.getPersonalEmergencyFundPercentage());
-        ad.setFamilyEmergencyAmount(paycheck, ap.getFamilyEmergencyFundPercentage());
-        ad.setCarAmount(paycheck, ap.getCarFundPercentage());
-        ad.setInvestingAmount(paycheck, ap.getInvestingFundPercentage());
-        ad.setClothingAmount(paycheck, ap.getClothingFundPercentage());
-        ad.setSupplementsAmount(paycheck, ap.getSupplementFundPercentage());
-        ad.setChessSetAmount(paycheck, ap.getChessSetFundPercentage());
-        ad.setRunningAmount(paycheck, ap.getRunningFundPercentage());
-        ad.setMiscellaneousAmount(paycheck, ap.getMiscellaneousFundPercentage());
 
         setAccountAmounts(ad, accountAmounts); //Assigns account amounts to an array
 
