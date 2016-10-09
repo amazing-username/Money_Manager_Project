@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.17-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.18-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: moneydatabase
 -- ------------------------------------------------------
--- Server version	10.1.17-MariaDB
+-- Server version	10.1.18-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -44,34 +44,6 @@ INSERT INTO `carAccount` VALUES ('2016-06-10-12-00','Car',135,'+',135,'Paycheck'
 UNLOCK TABLES;
 
 --
--- Table structure for table `entertainmentAccount`
---
-
-DROP TABLE IF EXISTS `entertainmentAccount`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `entertainmentAccount` (
-  `Date` char(16) DEFAULT NULL,
-  `Account` char(25) DEFAULT NULL,
-  `Balance` double DEFAULT NULL,
-  `Transaction_Type` char(1) DEFAULT NULL,
-  `Transaction` double DEFAULT NULL,
-  `Comment` char(35) DEFAULT NULL,
-  `Percent` double DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `entertainmentAccount`
---
-
-LOCK TABLES `entertainmentAccount` WRITE;
-/*!40000 ALTER TABLE `entertainmentAccount` DISABLE KEYS */;
-INSERT INTO `entertainmentAccount` VALUES ('2016-06-10-12-00','Entertainment',49,'+',49,'Paycheck',4),('2016-06-25-12-00','Entertainment',51,'+',2,'Paycheck',4),('2016-07-09-12-00','Entertainment',56,'+',5,'Paycheck',4),('2016-08-01-12-00','Entertainment',61,'+',5,'Paycheck',4),('2016-08-10-12-00','Entertainment',66,'+',5,'Paycheck',4),('2016-08-25-12-00','Entertainment',72,'+',6,'Paycheck',4),('2016-09-02-01-00','Entertainment',76,'+',4,'Paycheck',4),('2016-09-23-12-00','Entertainment',80,'+',4,'Refund Leftover',4),('2016-09-30-00-00','Entertainment',84,'+',4,'Paycheck',4);
-/*!40000 ALTER TABLE `entertainmentAccount` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `clothingAccount`
 --
 
@@ -97,6 +69,34 @@ LOCK TABLES `clothingAccount` WRITE;
 /*!40000 ALTER TABLE `clothingAccount` DISABLE KEYS */;
 INSERT INTO `clothingAccount` VALUES ('2016-06-10-12-00','Clothing',74,'+',74,'Paycheck',12),('2016-06-25-12-00','Clothing',82,'+',8,'Paycheck',12),('2016-07-09-12-00','Clothing',98,'+',16,'Paycheck',12),('2016-08-01-12-00','Clothing',114,'+',16,'Paycheck',12),('2016-08-01-12-01','Clothing',87,'-',27,'Levi Purchase',12),('2016-08-06-12-00','Clothing',17,'-',70,'Nike Purchase',12),('2016-08-10-12-00','Clothing',32,'+',15,'Paycheck',12),('2016-08-25-12-00','Clothing',55,'+',23,'Paycheck',12),('2016-09-02-01-00','Clothing',67,'+',12,'Paycheck',12),('2016-09-03-13-00','Clothing',40.29,'-',26.71,'Jones Purchase',12),('2016-09-27-13-30','Clothing',44.01,'-',10.28,'Thrift Purchase',12),('2016-09-23-12-00','Clothing',54.29,'+',14,'Refund Leftover',12),('2016-09-30-00-00','Clothing',58.01,'+',14,'Paycheck',12);
 /*!40000 ALTER TABLE `clothingAccount` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entertainmentAccount`
+--
+
+DROP TABLE IF EXISTS `entertainmentAccount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `entertainmentAccount` (
+  `Date` char(16) DEFAULT NULL,
+  `Account` char(25) DEFAULT NULL,
+  `Balance` double DEFAULT NULL,
+  `Transaction_Type` char(1) DEFAULT NULL,
+  `Transaction` double DEFAULT NULL,
+  `Comment` char(35) DEFAULT NULL,
+  `Percent` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `entertainmentAccount`
+--
+
+LOCK TABLES `entertainmentAccount` WRITE;
+/*!40000 ALTER TABLE `entertainmentAccount` DISABLE KEYS */;
+INSERT INTO `entertainmentAccount` VALUES ('2016-06-10-12-00','Entertainment',49,'+',49,'Paycheck',4),('2016-06-25-12-00','Entertainment',51,'+',2,'Paycheck',4),('2016-07-09-12-00','Entertainment',56,'+',5,'Paycheck',4),('2016-08-01-12-00','Entertainment',61,'+',5,'Paycheck',4),('2016-08-10-12-00','Entertainment',66,'+',5,'Paycheck',4),('2016-08-25-12-00','Entertainment',72,'+',6,'Paycheck',4),('2016-09-02-01-00','Entertainment',76,'+',4,'Paycheck',4),('2016-09-23-12-00','Entertainment',80,'+',4,'Refund Leftover',4),('2016-09-30-00-00','Entertainment',84,'+',4,'Paycheck',4);
+/*!40000 ALTER TABLE `entertainmentAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -304,4 +304,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-03 20:58:50
+-- Dump completed on 2016-10-09 17:27:07

@@ -1,6 +1,8 @@
 package sample;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class AccountData
@@ -10,18 +12,24 @@ public class AccountData
     {
         this.pad = pad;
     }
+    public AccountData(double paycheck)
+    {
+        this.paycheck = paycheck;
+    }
     public AccountData()
     {
 
     }
 
+
+    private DatabaseConnection db;
     private PaycheckAndDeductions pad;
     private Map<Integer, String> dateOfAccountTransaction;
-    private Map<Integer, String> nameOfAccount;
-    private Map<Integer, Double> balanceOfAcoount;
+    private Map<String, String> nameOfAccounts;
+    private Map<String, String> balanceOfAccounts;
     private Map<Integer, Character> transactionType;
-    private Map<Integer, Double> transaction;
-    private Map<Integer, String> transactionComment;
+    private Map<String, String> transactionsOfAccounts;
+    private Map<String, String> percentagesOfAccounts;
     private double iPhoneAmount;
     private double personalEmergencyAmount;
     private double familyEmergencyAmount;
@@ -42,6 +50,7 @@ public class AccountData
     private double chessSetBalance;
     private double runningBalance;
     private double miscellaneousBalance;
+    private double paycheck;
     private double total;
     private String year;
     private String month;
@@ -64,25 +73,138 @@ public class AccountData
     {
         this.dateOfAccountTransaction = dateOfAccountTransaction;
     }
-    public void setNameOfAccount(Map<Integer, String> nameOfAccount)
+    public void setNameOfAccounts(Map<String, String> nameOfAccounts) throws SQLException
     {
-        this.nameOfAccount = nameOfAccount;
+        nameOfAccounts = new HashMap<String, String>();
+        try
+        {
+            this.db = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            this.db.getAccountList();
+
+            Iterator itPre = this.db.getAccountListPre().iterator();
+            Iterator itPost = this.db.getAccountListPost().iterator();
+
+            while (itPre.hasNext())
+            {
+                String key = (String) itPre.next();
+                String value = setAccountNameFirstLetterToCapital(((String) itPost.next()));
+
+
+                nameOfAccounts.put(key, value);
+            }
+
+            this.nameOfAccounts = nameOfAccounts;
+        }
+        catch(SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
-    public void setBalanceOfAcoount(Map<Integer, Double> balanceOfAcoount)
+    public String setAccountNameFirstLetterToCapital(String accountName)
     {
-        this.balanceOfAcoount = balanceOfAcoount;
+        char firstLetter = accountName.charAt(0);
+        String firstLetterString = String.valueOf(firstLetter);
+        firstLetterString = firstLetterString.toUpperCase();
+
+        int accountNameSize = accountName.length();
+        String name = firstLetterString;
+
+        for (int i = 1; i < accountNameSize; i++)
+        {
+            name = name + accountName.charAt(i);
+            //System.out.println(name + " Original: " + accountName);
+            //System.out.println("Length: " + accountNameSize);
+        }
+
+        return name;
+    }
+    public void setBalanceOfAccounts(Map<String, String> balanceOfAccounts) throws SQLException
+    {
+        balanceOfAccounts = new HashMap<String, String>();
+        try
+        {
+            this.db = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            this.db.getAccountList();
+
+            Iterator itPre = this.db.getAccountListPre().iterator();
+
+            while (itPre.hasNext())
+            {
+                String key = (String) itPre.next();
+                double balance = Double.parseDouble(this.db.getBalanceOfAccount(key));
+                //System.out.println(key+ " Balance: " + balance);
+               // System.out.println(getTransactionsOfAccounts().get(key));
+                balance = balance + Double.parseDouble(getTransactionsOfAccounts().get(key));
+
+                String value = String.valueOf(balance);
+
+                balanceOfAccounts.put(key, value);
+            }
+
+            this.balanceOfAccounts = balanceOfAccounts;
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
     public void setTransactionType(Map<Integer, Character> transactionType)
     {
         this.transactionType = transactionType;
     }
-    public void setTransaction(Map<Integer, Double> transaction)
+    public void setTransactionsOfAccounts(Map<String, String> transactionsOfAccounts) throws SQLException
     {
-        this.transaction = transaction;
+        transactionsOfAccounts = new HashMap<String, String>();
+        try {
+            this.db = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            this.db.getAccountList();
+
+            Iterator itPre = this.db.getAccountListPre().iterator();
+
+            while (itPre.hasNext())
+            {
+                String key = (String) itPre.next();
+                //System.out.println("Paycheck amount: " + this.paycheck);
+                double transaction = this.paycheck * (Double.parseDouble(getPercentagesOfAccounts().get(key)) / 100.0);
+                //System.out.println(transaction);
+                transaction = Math.floor(transaction);
+
+                String value = String.valueOf(transaction);
+
+                transactionsOfAccounts.put(key, value);
+            }
+
+            this.transactionsOfAccounts = transactionsOfAccounts;
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
-    public void setTransactionComment(Map<Integer, String> transactionComment)
+    public void setPercentagesOfAccounts(Map<String, String> percentagesOfAccounts) throws SQLException
     {
-        this.transactionComment = transactionComment;
+        percentagesOfAccounts = new HashMap<String, String>();
+        try
+        {
+            this.db = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            this.db.getAccountList();
+
+            Iterator itPre = this.db.getAccountListPre().iterator();
+
+            while (itPre.hasNext())
+            {
+                String key = (String) itPre.next();
+                String value = String.valueOf(db.getAccountPercentages(key));
+
+                percentagesOfAccounts.put(key, value);
+            }
+
+            this.percentagesOfAccounts = percentagesOfAccounts;
+        }
+        catch (SQLException s)
+        {
+            s.printStackTrace();
+        }
     }
     public void setiPhoneAmount(double amount, double percentage)
     {
@@ -246,25 +368,25 @@ public class AccountData
     {
         return dateOfAccountTransaction;
     }
-    public Map<Integer, String> getNameOfAccount()
+    public Map<String, String> getNameOfAccounts()
     {
-        return nameOfAccount;
+        return nameOfAccounts;
     }
-    public Map<Integer, Double> getBalanceOfAccount()
+    public Map<String, String> getBalanceOfAccounts()
     {
-        return balanceOfAcoount;
+        return balanceOfAccounts;
     }
     public Map<Integer, Character> getTransactionType()
     {
         return transactionType;
     }
-    public Map<Integer, Double> getTransaction()
+    public Map<String, String> getTransactionsOfAccounts()
     {
-        return transaction;
+        return transactionsOfAccounts;
     }
-    public Map<Integer, String> getTransactionComment()
+    public Map<String, String> getPercentagesOfAccounts()
     {
-        return transactionComment;
+        return percentagesOfAccounts;
     }
 
     public double getiPhoneAmount()

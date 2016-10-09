@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class PaycheckAndDeductions
 {
@@ -36,9 +38,18 @@ public class PaycheckAndDeductions
     public void setAccountAmounts(double paycheck, String year, String month, String day, String hour, String minute) throws SQLException
     {
         AccountPercentages ap = new AccountPercentages();
-        AccountData ad = new AccountData();
-        DatabaseConnection dbc = new DatabaseConnection();
+        AccountData ad = new AccountData(paycheck);
+        DatabaseConnection dbc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+        dbc.getAccountList();
 
+        ad.setNameOfAccounts(new HashMap<String, String>());
+        ad.setPercentagesOfAccounts(new HashMap<String, String>());
+        ad.setTransactionsOfAccounts(new HashMap<String, String>());
+        ad.setBalanceOfAccounts(new HashMap<String, String>());
+
+
+
+        /**
         double accountBalances[] = new double[10];
         double accountAmounts[] = new double[10];
         String accountNames[] = new String[10];
@@ -50,7 +61,7 @@ public class PaycheckAndDeductions
 
         setAccountAmounts(ad, accountAmounts); //Assigns account amounts to an array
 
-
+        */
         ad.setYear(year);
         ad.setMonth(month);
         ad.setDay(day);
@@ -58,6 +69,7 @@ public class PaycheckAndDeductions
         ad.setMinute(minute);
         ad.setDate();
 
+        /**
         ad.setiPhoneBalance(Double.parseDouble(dbc.getBalanceOfAccount("iPhoneAccount")), ad.getiPhoneAmount());
         ad.setPersonalEmergencyBalance(Double.parseDouble(dbc.getBalanceOfAccount("personalEmergencyAccount")), ad.getPersonalEmergencyAmount());
         ad.setFamilyEmergencyBalance(Double.parseDouble(dbc.getBalanceOfAccount("familyEmergencyAccount")), ad.getFamilyEmergencyAmount());
@@ -68,14 +80,24 @@ public class PaycheckAndDeductions
         ad.setChessSetBalance(Double.parseDouble(dbc.getBalanceOfAccount("chessSetAccount")), ad.getChessSetAmount());
         ad.setRunningBalance(Double.parseDouble(dbc.getBalanceOfAccount("runningAccount")), ad.getRunningAmount());
         ad.setMiscellaneousBalance(Double.parseDouble(dbc.getBalanceOfAccount("miscellaneousAccount")), ad.getMiscellaneousAmount());
+        */
 
-
-        setAccountBalances(ad, accountBalances); //Assigns account balances to an array
+        //setAccountBalances(ad, accountBalances); //Assigns account balances to an array
 
         ad.setType("+");
         ad.setComment("Paycheck");
 
-        dbc.insertsToTable(ad.getDate(), accountNames, accountNamesAccess, accountBalances, ad.getType(), accountAmounts, ad.getComment());
+        Iterator wishWishWish = dbc.getAccountListPre().iterator();
+
+        while (wishWishWish.hasNext())
+        {
+            String key = (String) wishWishWish.next();
+
+            dbc.insertsToTable(key, ad.getDate(), ad.getNameOfAccounts().get(key), Double.parseDouble(ad.getBalanceOfAccounts().get(key)), ad.getType(), Double.parseDouble(ad.getTransactionsOfAccounts().get(key)),
+                    ad.getComment(), Double.parseDouble(ad.getPercentagesOfAccounts().get(key)) );
+        }
+
+        //dbc.insertsToTable(ad.getDate(), accountNames, accountNamesAccess, accountBalances, ad.getType(), accountAmounts, ad.getComment());
     }
     public void setAccountNames(String[] noGames, String[] accountNames)
     {

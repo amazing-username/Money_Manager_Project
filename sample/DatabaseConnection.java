@@ -85,6 +85,13 @@ public class DatabaseConnection
 					+ " values('" + date + "', '" + accountNames[i] + "', " + accountBalances[i] + ", '" + type + "', " + accountAmounts[i] + ", '" + comments + "')");
 		}
 	}
+	public void insertsToTable(String accountNameDatabaseAccess, String date, String accountName, double accountBalance, String type, double accountAmount, String comment, double percentage) throws SQLException
+	{
+		setInsertStatement();
+
+		getInsertStatement().executeUpdate( "insert into " + accountNameDatabaseAccess + "(Date, Account, Balance, Transaction_Type, Transaction, Comment, Percent)"
+			+ " values('" + date + "', '" + accountName + "', " + accountBalance + ", '" + type + "', " + accountAmount + ", '" + comment + "', " + percentage + ")" );
+	}
 
 	public String getAccount()
 	{
