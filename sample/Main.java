@@ -30,7 +30,6 @@ public class Main extends Application
 
 	private Scene scn;
 
-
 	public void setScn(BorderPane bp)
 	{
 		scn = new Scene(bp);
