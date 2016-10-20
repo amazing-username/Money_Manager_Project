@@ -164,6 +164,23 @@ public class DatabaseConnection
 		}
 		return balance;
 	}
+	public double getBalanceOfAccount(String accountName, double balance) throws SQLException
+	{
+		String que = "select Balance from " + accountName + " order by Date Desc limit 1";
+		try(
+						Statement stm = hahaha.createStatement();
+						ResultSet stmExe = stm.executeQuery(que);
+		)
+		{
+			while(stmExe.next())
+			{
+				balance = Double.parseDouble(stmExe.getString("Balance"));
+			}
+
+
+			return balance;
+		}
+	}
 	public void getAccountList()
 	{
 		String accountList = "show tables from moneydatabase";
@@ -230,6 +247,23 @@ public class DatabaseConnection
 
 			}
 			return Double.parseDouble(accountName);
+		}
+	}
+	public double getAccountPercent(String accountName) throws SQLException
+	{
+		String que = "select Percent from " + accountName + " order by Date Desc limit 1";
+		try(
+				Statement list = hahaha.createStatement();
+				ResultSet listExe = list.executeQuery(que);
+		)
+		{
+			double balance = 0;
+			while (listExe.next())
+			{
+				 balance = Double.parseDouble(listExe.getString("Percent"));
+			}
+			//return listExe.getDouble("Percent");
+			return balance;
 		}
 	}
 }

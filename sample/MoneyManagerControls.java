@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Insets;
+import java.time.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -219,7 +222,8 @@ public class MoneyManagerControls
         getManualMoneyTransfer().setText("transfer money");
         getManualMoneyTransfer().setOnAction( e ->
         {
-            System.out.println("Work In Progress...");
+            newWindowToTransferMoney();
+           // System.out.println("Work In Progress...");
         });
         getChangePercentages().setText("change percentages");
         getChangePercentages().setOnAction( e ->
@@ -233,6 +237,10 @@ public class MoneyManagerControls
         setmmHelpMenu(new Menu("Help"));
         setAboutApplication(new MenuItem());
         getAboutApplication().setText("info");
+        getAboutApplication().setOnAction(e ->
+        {
+            newWindowToShowInfo();
+        });
         getmmHelpMenu().getItems().add(getAboutApplication());
 
         MenuBar bars = new MenuBar();
@@ -465,6 +473,122 @@ public class MoneyManagerControls
     {
 
     }
+    public void newWindowToTransferMoney()
+    {
+
+        Stage transferStage = new Stage();
+        BorderPane pleaseCoach = new BorderPane();
+
+        Label fromLabel = new Label("From");
+        Label toLabel = new Label("To");
+        Label amountLabel = new Label("Amount");
+        Label warningLabel = new Label();
+        ComboBox from = new ComboBox();
+        from.getItems().addAll(getAccountList());
+        ComboBox to = new ComboBox();
+        to.getItems().addAll(getAccountList());
+        TextField amountTransfer = new TextField();
+        amountTransfer.setPromptText("10.17");
+        Button intiateTransfer = new Button("@");
+
+        HBox accounts = new HBox();
+        accounts.setPadding(new Insets(20, 20, 20, 20));
+        accounts.setSpacing(10);
+        accounts.getChildren().addAll(fromLabel, from, toLabel, to);
+
+        HBox theBusiness = new HBox();
+        theBusiness.setPadding(new Insets(20, 20, 20, 20));
+        theBusiness.setSpacing(20);
+        theBusiness.getChildren().addAll(amountLabel, amountTransfer, intiateTransfer);
+
+        VBox transferMoneyGroup = new VBox();
+        transferMoneyGroup.getChildren().addAll(accounts, theBusiness);
+        pleaseCoach.setCenter(transferMoneyGroup);
+        pleaseCoach.setBottom(warningLabel);
+
+       intiateTransfer.setOnAction( e ->
+       {
+           if (from.getValue().equals(to.getValue()))
+           {
+               String warning = "Two accounts cannot have the same value\nChange one of the accounts";
+               warningLabel.setText(warning);
+           }
+           else
+           {
+               try
+               {
+                   DatabaseConnection iii = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                   AccountData transform = new AccountData();
+                   DateI pancakes = new DateI();
+                   pancakes.setSinceUnix(System.currentTimeMillis());
+                   pancakes.setChrono(System.currentTimeMillis());
+                   pancakes.setYear();
+                   pancakes.setMonth();
+                   pancakes.setDay();
+                   pancakes.setHour();
+                   pancakes.setMinute();
+                   int year, month, day, hour, minute;
+                   year = pancakes.getYear();
+                   month = pancakes.getMonth();
+                   day = pancakes.getDay();
+                   hour = pancakes.getHour();
+                   minute = pancakes.getMinute();
+                   String date = year + "-" + month + "-" + day + "-" + hour + "-" + minute;
+
+                   String accountSource, accountTarget, accountNameSource, accountNameTarget;
+                   accountSource =(String)from.getValue();
+                   accountSource = accountSource + "Account";
+                   accountNameSource =  transform.setAccountNameFirstLetterToCapital((String)from.getValue());
+                   accountTarget = (String)to.getValue();
+                   accountTarget = accountTarget + "Account";
+                   accountNameTarget =  transform.setAccountNameFirstLetterToCapital((String)to.getValue());
+
+                   double balanceSource = 0, balanceTarget = 0;
+                   balanceSource = iii.getBalanceOfAccount(accountSource, balanceSource);
+                   balanceTarget = iii.getBalanceOfAccount(accountTarget, balanceTarget);
+
+                   String typeSource, typeTarget;
+                   typeSource = "-";
+                   typeTarget = "+";
+
+                   double amountSource, amountTarget;
+                   amountSource = Double.parseDouble(amountTransfer.getText());
+                   amountTarget = amountSource;
+
+                   String commentSource, commentTarget;
+                   commentSource = "Account Transfer";
+                   commentTarget = commentSource;
+
+                   double percentSource, percentTarget;
+                   percentSource = iii.getAccountPercent(accountSource);
+                   percentTarget = iii.getAccountPercent(accountTarget);
+
+                   String same = "Everything checks out!";
+                   warningLabel.setText(same);
+                   boolean proceedOrRegress = false;
+                   double transferAmount = Double.parseDouble(amountTransfer.getText());
+                   checkToSeeIfFromAccountHasABalance((String)from.getValue(), transferAmount, proceedOrRegress, iii, warningLabel);
+
+                   balanceSource = balanceSource - amountSource;
+                   balanceSource = Math.floor(balanceSource * 100)/100;
+                   balanceTarget = balanceTarget + amountTarget;
+                   balanceTarget = Math.floor(balanceTarget * 100)/100;
+
+                   iii.insertsToTable(accountSource, date, accountNameSource, balanceSource, typeSource, amountSource, commentSource, percentSource);
+                   iii.insertsToTable(accountTarget, date, accountNameTarget, balanceTarget, typeTarget, amountTarget, commentTarget, percentTarget);
+               }
+               catch (SQLException s)
+               {
+                   s.printStackTrace();
+               }
+           }
+       });
+
+        Scene stayClean = new Scene(pleaseCoach);
+
+        transferStage.setScene(stayClean);
+        transferStage.show();
+    }
     public void newWindowToChangePercentages()
     {
         Stage percentageStage = new Stage();
@@ -696,6 +820,21 @@ public class MoneyManagerControls
         addMoneyStage.setHeight(500);
         addMoneyStage.show();
     }
+    public void newWindowToShowInfo()
+    {
+        Stage match = new Stage();
+        BorderPane pb = new BorderPane();
+
+        Label writer = new Label();
+        writer.setText("Written by Kun Deng\nversion 0.50");
+        pb.setCenter(writer);
+
+        Scene sn = new Scene(pb);
+        match.setScene(sn);
+        match.setHeight(200);
+        match.setWidth(150);
+        match.show();
+    }
     public String balance()
     {
         //String que = "select balance from " + "iPhoneAccount" + " order by Date Desc limit 1";
@@ -723,6 +862,26 @@ public class MoneyManagerControls
             ss.printStackTrace();
         }
         return balance;
+    }
+    public void checkToSeeIfFromAccountHasABalance(String accountSource, double amountTransfer, boolean proceedOrRegress, DatabaseConnection iii, Label warningLabel) throws SQLException
+    {
+        accountSource = accountSource + "Account";
+        //System.out.println(accountSource);
+        double amount = Double.parseDouble(iii.getBalanceOfAccount(accountSource));
+
+        while (proceedOrRegress!=true)
+        {
+            if (amountTransfer > amount)
+            {
+                warningLabel.setText("The transfer amount is greater than the amount in the balance");
+                proceedOrRegress = false;
+            }
+            else
+            {
+                warningLabel.setText("Good!");
+                proceedOrRegress = true;
+            }
+        }
     }
     public double calculateNetDistributeWithNumber(double paycheck, double number)
     {

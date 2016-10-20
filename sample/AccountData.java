@@ -132,10 +132,14 @@ public class AccountData
             {
                 String key = (String) itPre.next();
                 double balance = Double.parseDouble(this.db.getBalanceOfAccount(key));
+                balance = Math.floor(balance * 100)/100;
+                double transactionAmount = Double.parseDouble(getTransactionsOfAccounts().get(key));
                 //System.out.println(key+ " Balance: " + balance);
-               // System.out.println(getTransactionsOfAccounts().get(key));
-                balance = balance + Double.parseDouble(getTransactionsOfAccounts().get(key));
-
+                System.out.println("Transaction amount: " + transactionAmount);
+                System.out.println("Pre-balance: " + balance);
+                balance = balance + (transactionAmount);
+                balance = Math.floor(balance * 100) / 100;
+                System.out.println("Balance of account: " + balance);
                 String value = String.valueOf(balance);
 
                 balanceOfAccounts.put(key, value);
@@ -165,10 +169,11 @@ public class AccountData
             {
                 String key = (String) itPre.next();
                 //System.out.println("Paycheck amount: " + this.paycheck);
+                //System.out.println(this.paycheck);
                 double transaction = this.paycheck * (Double.parseDouble(getPercentagesOfAccounts().get(key)) / 100.0);
                 //System.out.println(transaction);
                 transaction = Math.floor(transaction);
-
+                //System.out.println("Transaction setting: " + transaction);
                 String value = String.valueOf(transaction);
 
                 transactionsOfAccounts.put(key, value);
