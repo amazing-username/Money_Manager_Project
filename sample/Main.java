@@ -51,7 +51,6 @@ public class Main extends Application
 			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
 			"Miscellaneous Fund"};
 
-		//setbp();
 		setScn(controls.getbdp());
 		controls.getbdp().setTop(controls.getmmMenuBar());
 		controls.getbdp().setCenter(controls.bpCenterSetup());
