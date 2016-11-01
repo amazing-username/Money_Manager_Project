@@ -1,4 +1,4 @@
-Money Manager Application
+Money Manager Application - Pre-release development
 
 Disclaimer:
 functional but not complete
