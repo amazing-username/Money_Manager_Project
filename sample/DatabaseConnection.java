@@ -233,7 +233,7 @@ public class DatabaseConnection
 	public double getAccountPercentages(String accountName) throws SQLException
 	{
 		//System.out.println("Account Name: " + accountName);
-		String que = "select Percent from " + accountName + " limit 1";
+		String que = "select Percent from " + accountName + " order by date desc limit 1";
 		try(
 				Statement listStatement = hahaha.createStatement();
 				ResultSet statementExe = listStatement.executeQuery(que);
