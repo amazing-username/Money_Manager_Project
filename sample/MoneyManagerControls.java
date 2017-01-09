@@ -2,15 +2,7 @@ package sample;
 
 import javafx.geometry.Insets;
 import java.time.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
@@ -39,7 +31,7 @@ public class MoneyManagerControls
     //Uninitialized menu items
     private Menu mmFileMenu, mmEditMenu, mmHelpMenu;
     private MenuBar mmMenuBar;
-    private MenuItem closeApplication, addPaycheck, manualMoneyTransfer,
+    private MenuItem closeApplication, addPaycheck, manualMoneyTransfer, withdrawPurchase,
             changePercentages, aboutApplication;
 
     private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
@@ -83,6 +75,10 @@ public class MoneyManagerControls
     public void setManualMoneyTransfer(MenuItem manualMoneyTransfer)
     {
         this.manualMoneyTransfer = manualMoneyTransfer;
+    }
+    public void setWithdrawPurchase(MenuItem withdrawPurchase)
+    {
+        this.withdrawPurchase = withdrawPurchase;
     }
     public void setChangePercentages(MenuItem changePercentages)
     {
@@ -211,6 +207,7 @@ public class MoneyManagerControls
         setmmEditMenu(new Menu("Edit"));
         setAddPaycheck(new MenuItem());
         setManualMoneyTransfer(new MenuItem());
+        setWithdrawPurchase(new MenuItem());
         setChangePercentages(new MenuItem());
         getAddPaycheck().setText("add paycheck");
         getAddPaycheck().setOnAction(e ->
@@ -225,12 +222,17 @@ public class MoneyManagerControls
             newWindowToTransferMoney();
            // System.out.println("Work In Progress...");
         });
+        getWithdrawPurchase().setText("Withdraw or Purchase");
+        getWithdrawPurchase().setOnAction( e ->
+        {
+           newWindowToWithdrawPurchase();
+        });
         getChangePercentages().setText("change percentages");
         getChangePercentages().setOnAction( e ->
         {
             newWindowToChangePercentages();
         });
-        getmmEditMenu().getItems().addAll(getAddPaycheck(), getManualMoneyTransfer(),
+        getmmEditMenu().getItems().addAll(getAddPaycheck(), getManualMoneyTransfer(), getWithdrawPurchase(),
                 getChangePercentages());
 
         //For Help Menu
@@ -278,6 +280,10 @@ public class MoneyManagerControls
     public MenuItem getManualMoneyTransfer()
     {
         return manualMoneyTransfer;
+    }
+    public MenuItem getWithdrawPurchase()
+    {
+        return withdrawPurchase;
     }
     public MenuItem getChangePercentages()
     {
@@ -589,6 +595,95 @@ public class MoneyManagerControls
         transferStage.setScene(stayClean);
         transferStage.show();
     }
+    public void newWindowToWithdrawPurchase()
+    {
+        Stage withdrawPurchaseStage = new Stage();
+        BorderPane withdrawPurchaseBorderPane = new BorderPane();
+
+        HBox cmbAndAmount = new HBox();
+        HBox comment = new HBox();
+        HBox subtract = new HBox();
+
+        ComboBox cmbList = new ComboBox();
+        cmbList.getItems().addAll(getAccountList());
+        TextField amount = new TextField();
+
+        TextArea commentArea = new TextArea();
+
+        Button subtractButton = new Button();
+        subtractButton.setOnAction(e ->
+        {
+            try
+            {
+                DatabaseConnection dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                AccountData ad = new AccountData();
+                DateI forever = new DateI();
+
+                forever.setSinceUnix(System.currentTimeMillis());
+                forever.setChrono(System.currentTimeMillis());
+                forever.setYear();
+                forever.setMonth();
+                forever.setDay();
+                forever.setHour();
+                forever.setMinute();
+
+                int year, month, day, hour, minute;
+
+                year = forever.getYear();
+                month = forever.getMonth();
+                day = forever.getDay();
+                hour = forever.getHour();
+                minute = forever.getMinute();
+
+                String date = ad.getDateString(year, month, day, hour, minute);
+
+                String accountName, accountDatabaseName;
+                accountName = ((String) cmbList.getValue()) + "Account";
+                accountDatabaseName = ad.setAccountNameFirstLetterToCapital(((String)cmbList.getValue()));
+
+                double accountBalance = new Double(0);
+                accountBalance = dc.getBalanceOfAccount(accountName, accountBalance);
+
+                double transactionAmount = Double.parseDouble(amount.getText());
+
+                String commentString = commentArea.getText();
+
+                double percentage = dc.getAccountPercent(accountName);
+
+                if(accountBalance < transactionAmount)
+                {
+                    newWindowToShowError();
+
+                }
+                else
+                {
+                    accountBalance = accountBalance - transactionAmount;
+                    dc.insertsToTable(accountName, date, accountDatabaseName, accountBalance, "-", transactionAmount, commentString, percentage);
+                }
+
+
+                //dc.insertToTable(accountName, date, accountDatabaseName, , "-", transactionAmount, commentString, percentage);
+            }
+            catch(SQLException s)
+            {
+                s.printStackTrace();
+            }
+        });
+
+        cmbAndAmount.getChildren().addAll(cmbList, amount);
+        comment.getChildren().add(commentArea);
+        subtract.getChildren().add(subtractButton);
+
+        VBox layers = new VBox();
+        layers.getChildren().addAll(cmbAndAmount, comment, subtract);
+
+        withdrawPurchaseBorderPane.setCenter(layers);
+
+        Scene withdrawPurchaseScene = new Scene(withdrawPurchaseBorderPane);
+
+        withdrawPurchaseStage.setScene(withdrawPurchaseScene);
+        withdrawPurchaseStage.show();
+    }
     public void newWindowToChangePercentages()
     {
         Stage percentageStage = new Stage();
@@ -834,6 +929,21 @@ public class MoneyManagerControls
         match.setHeight(200);
         match.setWidth(150);
         match.show();
+    }
+    public void newWindowToShowError()
+    {
+        Stage errorStage = new Stage();
+        BorderPane errorBorderPane = new BorderPane();
+        Label errorLabel = new Label("Transaction amount exceeds account balance\n\n");
+
+        errorBorderPane.setCenter(errorLabel);
+
+        Scene errorScene = new Scene(errorBorderPane);
+
+        errorStage.setScene(errorScene);
+        errorStage.setWidth(300);
+        errorStage.setHeight(300);
+        errorStage.show();
     }
     public String balance()
     {

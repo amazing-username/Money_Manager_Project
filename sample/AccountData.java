@@ -1,6 +1,8 @@
 package sample;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -497,6 +499,59 @@ public class AccountData
     public String getDate()
     {
         return date;
+    }
+    public String getDateString(int year, int month, int day, int hour, int minute)
+    {
+        String monthString, dayString, hourString, minuteString, dateString;
+        dateString = "" + year;
+        List dateStringList = new ArrayList();
+        if (month < 10)
+        {
+            monthString = "0" + month;
+        }
+        else
+        {
+            monthString = "" + month;
+        }
+        if (day < 10)
+        {
+            dayString = "0" + day;
+        }
+        else
+        {
+            dayString = "" + day;
+        }
+        if (hour < 10)
+        {
+            hourString = "" + hour;
+        }
+        else
+        {
+            hourString = "" + hour;
+        }
+        if (minute < 10)
+        {
+            minuteString = "0" + minute;
+        }
+        else
+        {
+            minuteString = "" + minute;
+        }
+
+        dateStringList.add(monthString);
+        dateStringList.add(dayString);
+        dateStringList.add(hourString);
+        dateStringList.add(minuteString);
+
+        Iterator it = dateStringList.iterator();
+
+        while (it.hasNext())
+        {
+            dateString = dateString + "-" + it.next();
+
+        }
+
+        return dateString;
     }
     public String getType()
     {
