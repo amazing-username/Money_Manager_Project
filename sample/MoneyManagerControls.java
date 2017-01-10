@@ -32,7 +32,7 @@ public class MoneyManagerControls
     private Menu mmFileMenu, mmEditMenu, mmHelpMenu;
     private MenuBar mmMenuBar;
     private MenuItem closeApplication, addPaycheck, manualMoneyTransfer, withdrawPurchase,
-            changePercentages, aboutApplication;
+            deposit, changePercentages, aboutApplication;
 
     private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
     familyEmergencyFundPercentageLabel, carFundPercentageLabel, investingFundPercentageLabel,
@@ -79,6 +79,10 @@ public class MoneyManagerControls
     public void setWithdrawPurchase(MenuItem withdrawPurchase)
     {
         this.withdrawPurchase = withdrawPurchase;
+    }
+    public void setDeposit(MenuItem deposit)
+    {
+        this.deposit = deposit;
     }
     public void setChangePercentages(MenuItem changePercentages)
     {
@@ -208,6 +212,7 @@ public class MoneyManagerControls
         setAddPaycheck(new MenuItem());
         setManualMoneyTransfer(new MenuItem());
         setWithdrawPurchase(new MenuItem());
+        setDeposit(new MenuItem());
         setChangePercentages(new MenuItem());
         getAddPaycheck().setText("add paycheck");
         getAddPaycheck().setOnAction(e ->
@@ -227,13 +232,18 @@ public class MoneyManagerControls
         {
            newWindowToWithdrawPurchase();
         });
+        getDeposit().setText("Deposit");
+        getDeposit().setOnAction(e ->
+        {
+            newWindowToDeposit();
+        });
         getChangePercentages().setText("change percentages");
         getChangePercentages().setOnAction( e ->
         {
             newWindowToChangePercentages();
         });
         getmmEditMenu().getItems().addAll(getAddPaycheck(), getManualMoneyTransfer(), getWithdrawPurchase(),
-                getChangePercentages());
+                getDeposit(), getChangePercentages());
 
         //For Help Menu
         setmmHelpMenu(new Menu("Help"));
@@ -284,6 +294,10 @@ public class MoneyManagerControls
     public MenuItem getWithdrawPurchase()
     {
         return withdrawPurchase;
+    }
+    public MenuItem getDeposit()
+    {
+        return deposit;
     }
     public MenuItem getChangePercentages()
     {
@@ -684,6 +698,96 @@ public class MoneyManagerControls
         withdrawPurchaseStage.setScene(withdrawPurchaseScene);
         withdrawPurchaseStage.show();
     }
+    public void newWindowToDeposit()
+    {
+        Stage depositStage = new Stage();
+        BorderPane depositBorderPane = new BorderPane();
+
+        VBox stacked = new VBox();
+
+        HBox cmbAndAmount, comment, add;
+        cmbAndAmount = new HBox();
+        comment = new HBox();
+        add = new HBox();
+
+        ComboBox cmbList = new ComboBox();
+        cmbList.getItems().addAll(getAccountList());
+
+        TextField amount = new TextField();
+
+        TextArea commentArea = new TextArea();
+
+        Button addButton = new Button();
+        addButton.setOnAction(e ->
+        {
+            try
+            {
+                DatabaseConnection dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                AccountData ad = new AccountData();
+                DateI forever = new DateI();
+
+                forever.setSinceUnix(System.currentTimeMillis());
+                forever.setChrono(System.currentTimeMillis());
+                forever.setYear();
+                forever.setMonth();
+                forever.setDay();
+                forever.setHour();
+                forever.setMinute();
+
+                int year, month, day, hour, minute;
+
+                year = forever.getYear();
+                month = forever.getMonth();
+                day = forever.getDay();
+                hour = forever.getHour();
+                minute = forever.getMinute();
+
+                String date = ad.getDateString(year, month, day, hour, minute);
+
+                String accountName, databaseName;
+                accountName = ((String) cmbList.getValue()) + "Account";
+                databaseName = ad.setAccountNameFirstLetterToCapital((String) cmbList.getValue());
+
+                double accountBalance = new Double(0);
+                accountBalance = dc.getBalanceOfAccount(accountName, accountBalance);
+
+                double transactionAmount = Double.parseDouble(amount.getText());
+
+                String commentString = (String) commentArea.getText();
+
+                double accountPercentage = dc.getAccountPercent(accountName);
+
+                if (accountBalance < transactionAmount)
+                {
+                    newWindowToShowError();
+                }
+                else
+                {
+                    accountBalance = accountBalance + transactionAmount;
+                    dc.insertsToTable(accountName, date, databaseName, accountBalance, "-", transactionAmount, commentString, accountPercentage);
+                }
+            }
+            catch(SQLException s)
+            {
+                s.printStackTrace();
+            }
+        });
+
+        cmbAndAmount.getChildren().addAll(cmbList, amount);
+        comment.getChildren().add(commentArea);
+        add.getChildren().add(addButton);
+
+
+        stacked.getChildren().addAll(cmbAndAmount, comment, add);
+
+        depositBorderPane.setCenter(stacked);
+
+       Scene depositScene = new Scene(depositBorderPane);
+
+       depositStage.setScene(depositScene);
+       depositStage.show();
+
+    }
     public void newWindowToChangePercentages()
     {
         Stage percentageStage = new Stage();
@@ -934,14 +1038,14 @@ public class MoneyManagerControls
     {
         Stage errorStage = new Stage();
         BorderPane errorBorderPane = new BorderPane();
-        Label errorLabel = new Label("Transaction amount exceeds account balance\n\n");
+        Label errorLabel = new Label("Transaction amount exceeds \n\naccount balance");
 
         errorBorderPane.setCenter(errorLabel);
 
         Scene errorScene = new Scene(errorBorderPane);
 
         errorStage.setScene(errorScene);
-        errorStage.setWidth(300);
+        errorStage.setWidth(400);
         errorStage.setHeight(300);
         errorStage.show();
     }
