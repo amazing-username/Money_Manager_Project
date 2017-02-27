@@ -655,7 +655,7 @@ public class MoneyManagerControls
                 accountName = ((String) cmbList.getValue()) + "Account";
                 accountDatabaseName = ad.setAccountNameFirstLetterToCapital(((String)cmbList.getValue()));
 
-                double accountBalance = new Double(0);
+                double accountBalance = 0;
                 accountBalance = dc.getBalanceOfAccount(accountName, accountBalance);
 
                 double transactionAmount = Double.parseDouble(amount.getText());
@@ -748,7 +748,7 @@ public class MoneyManagerControls
                 accountName = ((String) cmbList.getValue()) + "Account";
                 databaseName = ad.setAccountNameFirstLetterToCapital((String) cmbList.getValue());
 
-                double accountBalance = new Double(0);
+                double accountBalance = 0;
                 accountBalance = dc.getBalanceOfAccount(accountName, accountBalance);
 
                 double transactionAmount = Double.parseDouble(amount.getText());
