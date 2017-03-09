@@ -27,23 +27,23 @@ public class MoneyManagerControls
     PaycheckAndDeductions paycheckStuff = new PaycheckAndDeductions();
     BorderPane bdp = new BorderPane();
     private Button checkButton;
-    private ComboBox accountDropDown;
+    private static ComboBox accountDropDown;
     //Uninitialized menu items
     private Menu mmFileMenu, mmEditMenu, mmHelpMenu;
     private MenuBar mmMenuBar;
     private MenuItem closeApplication, addPaycheck, manualMoneyTransfer, withdrawPurchase,
-            deposit, changePercentages, aboutApplication;
+            deposit, changePercentages, totalAccountBalance, aboutApplication;
 
     private Label iPhoneFundPercentageLabel, personalEmergencyFundPercentageLabel,
     familyEmergencyFundPercentageLabel, carFundPercentageLabel, investingFundPercentageLabel,
     clothingFundPercentageLabel, supplementFundPercentageLabel, chessSetFundPercentageLabel,
-    runningFundPercentageLabel, miscellaneousFundPercentageLabel;
+    runningFundPercentageLabel, miscellaneousFundPercentageLabel, balanceOfAccounts;
     private TableView moneyStuff;
     private TextField iPhoneFundPercentageTextField, personalEmergencyFundPercentageTextField,
     familyEmergencyFundPercentageTextField, carFundPercentageTextField, investingFundPercentageTextField,
     clothingFundPercentageTextField, supplementFundPercentageTextField, chessSetFundPercentageTextField,
     runningFundPercentageTextField, miscellaneousFundPercentageTextField;
-    private String accountList[];
+    private static String accountList[];
 
     //Menu bar mutator
     public void setmmMenuBar(MenuBar mmMenuBar)
@@ -92,6 +92,10 @@ public class MoneyManagerControls
     {
         this.aboutApplication = aboutApplication;
     }
+    public void setTotalAccountBalance(MenuItem totalAccountBalance)
+    {
+    	this.totalAccountBalance = totalAccountBalance;
+    }
     //Label mutators
     public void setiPhoneFundPercentageLabel(Label iPhoneFundPercentageLabel)
     {
@@ -132,6 +136,10 @@ public class MoneyManagerControls
     public void setMiscellaneousFundPercentageLabel(Label miscellaneousFundPercentageLabel)
     {
         this.miscellaneousFundPercentageLabel = miscellaneousFundPercentageLabel;
+    }
+    public void setBalanceOfAccounts(Label balanceOfAccounts)
+    {
+   	this.balanceOfAccounts = balanceOfAccounts; 
     }
     //Text Field mutators
     public void setiPhoneFundPercentageTextField(TextField iPhoneFundPercentageTextField)
@@ -214,6 +222,7 @@ public class MoneyManagerControls
         setWithdrawPurchase(new MenuItem());
         setDeposit(new MenuItem());
         setChangePercentages(new MenuItem());
+	setTotalAccountBalance(new MenuItem("Account Balance"));
         getAddPaycheck().setText("add paycheck");
         getAddPaycheck().setOnAction(e ->
         {
@@ -242,8 +251,50 @@ public class MoneyManagerControls
         {
             newWindowToChangePercentages();
         });
+	double balance = 0;
+	double balanceOfAccount;
+	double accountBalances[] = new double[10];
+	getTotalAccountBalance().setOnAction( e ->
+	{
+		try
+		 
+		{
+			DatabaseConnection dc = new DatabaseConnection();
+			Iterator it = dc.getAccountListPre().iterator();
+
+			int count = 0;
+			while (it.hasNext())
+			{
+				accountBalances[count] = Double.parseDouble(dc.getBalanceOfAccount((String)it.next()));
+				//System.out.println(accountBalances[count]);
+
+				count++;
+			}
+
+			setBalanceOfAccounts( new Label( (""+retrieveBalance(accountBalances, (count - 1)))));
+			//getBalanceOfAccount() = new Label( (""+retrieddveBalance(accountBalances, (count - 1))));
+		
+		}
+		catch (SQLException s)
+		{
+			s.printStackTrace();
+		}
+
+		Stage accountBalanceStage = new Stage();
+		Scene sn = new Scene(getBalanceOfAccount());
+
+		accountBalanceStage.setTitle("Balance");
+		accountBalanceStage.setMinHeight(300);
+		accountBalanceStage.setMinWidth(300);
+		accountBalanceStage.setMaxHeight(300);
+		accountBalanceStage.setMaxWidth(300);
+		accountBalanceStage.setScene(sn);
+		accountBalanceStage.show();
+
+
+	});
         getmmEditMenu().getItems().addAll(getAddPaycheck(), getManualMoneyTransfer(), getWithdrawPurchase(),
-                getDeposit(), getChangePercentages());
+                getDeposit(), getChangePercentages(), getTotalAccountBalance());
 
         //For Help Menu
         setmmHelpMenu(new Menu("Help"));
@@ -260,7 +311,18 @@ public class MoneyManagerControls
         setmmMenuBar(bars);
 
         return mmMenuBar;
-        }
+    }
+    public double retrieveBalance(double[] accounts, int size)
+    {
+    	if (size == 0)
+	{
+		return accounts[size];
+	}
+	else
+	{
+		return accounts[size] + retrieveBalance(accounts, (size - 1));
+	}
+    }
     public BorderPane getbdp()
     {
         return bdp;
@@ -302,6 +364,10 @@ public class MoneyManagerControls
     public MenuItem getChangePercentages()
     {
         return changePercentages;
+    }
+    public MenuItem getTotalAccountBalance()
+    {
+    	return totalAccountBalance;
     }
     public MenuItem getAboutApplication()
     {
@@ -346,6 +412,10 @@ public class MoneyManagerControls
     public Label getMiscellaneousFundPercentageLabel()
     {
         return miscellaneousFundPercentageLabel;
+    }
+    public Label getBalanceOfAccount()
+    {
+    	return balanceOfAccounts;
     }
     //Text Field accessors
     public TextField getiPhoneFundPercentageTextField()
@@ -398,6 +468,7 @@ public class MoneyManagerControls
     }
     public String[] getAccountList()
     {
+
         return accountList;
     }
 
@@ -414,24 +485,15 @@ public class MoneyManagerControls
      */
 
 
-    public HBox comboBoxAndButton()
+    public HBox comboBoxAndButton() throws SQLException
     {
         //AccountData ad = new AccountData();
         HBox topOfCenterThis = new HBox();
         //ad.setComboColumData();
-        DatabaseConnection dc;
+	DatabaseConnection dc;
 
-        try{
-        dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
-
-        dc.getAccountList();
-        setAccountList(dc.getAccountListPost());
-        }
-        catch (SQLException s)
-        {
-            s.printStackTrace();
-        }
-
+	
+	
         setAccountDropDown(new ComboBox());
         getAccountDropDown().getItems().addAll(getAccountList());
         setCheckButton(new Button("^"));
@@ -443,7 +505,7 @@ public class MoneyManagerControls
             DatabaseConnection dbsql;
 
             try {
-                dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                dbsql = new DatabaseConnection();
 
                 //String key = (String) getAccountDropDown().getValue();
                 //String value = junkInTheTrunk.getComboColumData().get(key);
@@ -474,7 +536,7 @@ public class MoneyManagerControls
         return topOfCenterThis;
     }
 
-    public VBox bpCenterSetup()
+    public VBox bpCenterSetup() throws SQLException
     {
         VBox centerThis = new VBox();
 
@@ -537,7 +599,7 @@ public class MoneyManagerControls
            {
                try
                {
-                   DatabaseConnection iii = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                   DatabaseConnection iii = new DatabaseConnection();
                    AccountData transform = new AccountData();
                    DateI pancakes = new DateI();
                    pancakes.setSinceUnix(System.currentTimeMillis());
@@ -629,7 +691,7 @@ public class MoneyManagerControls
         {
             try
             {
-                DatabaseConnection dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                DatabaseConnection dc = new DatabaseConnection();
                 AccountData ad = new AccountData();
                 DateI forever = new DateI();
 
@@ -722,7 +784,7 @@ public class MoneyManagerControls
         {
             try
             {
-                DatabaseConnection dc = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                DatabaseConnection dc = new DatabaseConnection();
                 AccountData ad = new AccountData();
                 DateI forever = new DateI();
 
@@ -885,7 +947,7 @@ public class MoneyManagerControls
             try
             {
                 AccountPercentages ap = new AccountPercentages();
-                DatabaseConnection dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+                DatabaseConnection dbsql = new DatabaseConnection();
 
                 percentageInformation(ap, dbsql);
                 //dbsql.setDbTableList();
@@ -1019,6 +1081,74 @@ public class MoneyManagerControls
         addMoneyStage.setHeight(500);
         addMoneyStage.show();
     }
+    public void loginWindowSetup(Stage primaryStage) throws SQLException
+    {
+	    TextField username = new TextField();
+	    username.setPromptText("user");
+	    TextField password = new TextField();
+	    Button loginButton = new Button(">");
+	    BorderPane loginPane = new BorderPane();
+	    VBox loginBox = new VBox();
+	    loginBox.getChildren().addAll(username, password);
+
+	    loginPane.setCenter(loginBox);
+	    loginPane.setRight(loginButton);
+
+
+	    Stage loginStage = new Stage();
+	    Scene loginScene = new Scene(loginPane);
+		
+	    loginButton.setOnAction( e ->
+	    {
+		    String databaseURL = "jdbc:mariadb://localhost:3306/moneydatabase";
+		    String user = username.getText();
+		    String pass = password.getText();
+
+
+		    try
+		
+		    {
+		    	DatabaseConnection db = new DatabaseConnection(databaseURL, user, pass);
+        	    	db.getAccountList();
+       	 		setAccountList(db.getAccountListPost());
+		//setScn(controls.getbdp());
+		Main.setScn((getbdp()));
+		getbdp().setTop(getmmMenuBar());
+		getbdp().setCenter(bpCenterSetup());
+		setMoneyStuff();
+		getbdp().setBottom(getMoneyStuff());
+
+		primaryStage.setMinHeight(900);
+		primaryStage.setMaxHeight(900);
+		primaryStage.setMinWidth(800);
+		primaryStage.setMaxWidth(800);
+		primaryStage.setTitle("MM");
+		primaryStage.setScene(Main.getScn());
+		primaryStage.show();
+		    }
+		    catch (SQLException s)
+		    {
+		    	s.printStackTrace();
+		    }
+		    System.out.println("Connected");
+		    loginStage.close();
+	    });
+
+
+
+	    loginStage.setScene(loginScene);
+	    loginStage.setMinWidth(500);
+	    loginStage.setMaxWidth(500);
+	    loginStage.setMinHeight(300);
+	    loginStage.setMaxHeight(300);
+	    loginStage.setTitle("Login page");
+	    loginStage.show();
+    
+    }
+    public void changePlace(boolean place)
+    {
+    	place = false;
+    }
     public void newWindowToShowInfo()
     {
         Stage match = new Stage();
@@ -1056,12 +1186,11 @@ public class MoneyManagerControls
         List<AccountInfo> aDetails = new ArrayList<>();
 
         String que = "select * from " + "clothingAccount" + " order by Date Desc limit 1";
-        try(
-                Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
-                Statement listStatement = hahaha.createStatement();
-                ResultSet statementExe = listStatement.executeQuery(que);
-        )
+        try
         {
+		DatabaseConnection dc = new DatabaseConnection();	
+                Statement listStatement = dc.getConnection().createStatement();
+                ResultSet statementExe = listStatement.executeQuery(que);
 
             while (statementExe.next())
             {

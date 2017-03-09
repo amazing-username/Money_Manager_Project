@@ -1,13 +1,13 @@
--- MySQL dump 10.15  Distrib 10.0.29-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: localhost
 -- ------------------------------------------------------
--- Server version	10.0.29-MariaDB-0ubuntu0.16.10.1
+-- Server version	10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -123,7 +123,7 @@ CREATE TABLE `investingAccount` (
 
 LOCK TABLES `investingAccount` WRITE;
 /*!40000 ALTER TABLE `investingAccount` DISABLE KEYS */;
-INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck',9),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck',9),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck',9),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck',9),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck',9),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck',9),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck',9),('2016-09-10-14-57','Investing',124.02,'-',19.98,'Book Rental',9),('2016-09-11-11-35','Investing',118.64,'-',5.38,'School Supplies',9),('2016-09-23-12-00','Investing',128.64,'+',10,'Refund Leftover',9),('2016-09-30-00-00','Investing',139.64,'+',11,'Paycheck',10),('2016-10-14-00-00','Investing',144.63,'+',5,'Paycheck',12),('2016-10-28-00-00','Investing',158.63,'+',14,'Paycheck',12),('2016-11-10-00-00','Investing',170.63,'+',12,'Paycheck',12),('2016-11-22-01-00','Investing',187.63,'+',17,'Paycheck',12),('2016-12-09-12-12','Investing',195.63,'+',8,'Paycheck',12),('2016-12-21-20-10','Investing',132.63,'-',63,'Bright Tangled Chain',12),('2016-12-22-12-15','Investing',142.63,'+',10,'Paycheck',12),('2016-12-27-22-30','Investing',122.63,'-',20,'Relief',12),('2017-01-24-8-59','Investing',67.16999999999999,'-',55.46,'Chegg',12);
+INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck',9),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck',9),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck',9),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck',9),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck',9),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck',9),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck',9),('2016-09-10-14-57','Investing',124.02,'-',19.98,'Book Rental',9),('2016-09-11-11-35','Investing',118.64,'-',5.38,'School Supplies',9),('2016-09-23-12-00','Investing',128.64,'+',10,'Refund Leftover',9),('2016-09-30-00-00','Investing',139.64,'+',11,'Paycheck',10),('2016-10-14-00-00','Investing',144.63,'+',5,'Paycheck',12),('2016-10-28-00-00','Investing',158.63,'+',14,'Paycheck',12),('2016-11-10-00-00','Investing',170.63,'+',12,'Paycheck',12),('2016-11-22-01-00','Investing',187.63,'+',17,'Paycheck',12),('2016-12-09-12-12','Investing',195.63,'+',8,'Paycheck',12),('2016-12-21-20-10','Investing',132.63,'-',63,'Bright Tangled Chain',12),('2016-12-22-12-15','Investing',142.63,'+',10,'Paycheck',12),('2016-12-27-22-30','Investing',122.63,'-',20,'Relief',12),('2017-01-24-8-59','Investing',67.17,'-',55.46,'Chegg',12),('2017-03-03-13-36','Investing',32.3,'-',34.97,'Amazon',12);
 /*!40000 ALTER TABLE `investingAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `miscellaneousAccount` (
 
 LOCK TABLES `miscellaneousAccount` WRITE;
 /*!40000 ALTER TABLE `miscellaneousAccount` DISABLE KEYS */;
-INSERT INTO `miscellaneousAccount` VALUES ('2016-06-10-12-00','Miscellaneous',27,'+',27,'Paycheck',18),('2016-06-25-12-00','Miscellaneous',40,'+',13,'Paycheck',18),('2016-07-09-12-00','Miscellaneous',47,'+',7,'Paycheck',18),('2016-08-01-12-00','Miscellaneous',54,'+',7,'Paycheck',18),('2016-08-10-12-00','Miscellaneous',76,'+',22,'Paycheck',18),('2016-08-25-12-00','Miscellaneous',106,'+',30,'Paycheck',18),('2016-09-02-01-00','Miscellaneous',124,'+',18,'Paycheck',18),('2016-09-03-13-00','Miscellaneous',12.65,'-',111.35,'Levi Purchase',18),('2016-09-23-12-00','Miscellaneous',39.65,'+',27,'Refund Leftover',18),('2016-09-30-00-00','Miscellaneous',65.65,'+',26,'Paycheck',18),('2016-10-14-18-42','Miscellaneous',197.65,'+',122,'Account Transfer',18),('2016-10-14-00-00','Miscellaneous',75.65,'+',10,'Paycheck',18),('2016-10-15-19-50','Miscellaneous',196.45,'-',1.2,'Movie Snacks',18),('2016-10-15-20-00','Miscellaneous',191.95,'-',4.5,'Movie',16),('2016-10-19-22-30','Miscellaneous',146.95,'-',45,'Goodbye Eric',16),('2016-10-19-22-30','Miscellaneous',137.95,'-',9,'GE Tip',16),('2016-10-28-00-00','Miscellaneous',155.94,'+',18,'Paycheck',16),('2016-10-29-20-00','Miscellaneous',136.94,'-',19,'XC NACC Champs',16),('2016-11-07-18-30','Miscellaneous',90.94,'-',46,'John\'s 21st',16),('2016-11-10-00-00','Miscellaneous',106.94,'+',16,'Paycheck',16),('2016-11-13-11-30','Miscellaneous',99.47,'-',7.47,'Krispy Kreme with friends',16),('2016-11-17-19-00','Miscellaneous',88.49,'-',10.98,'Jimmy\'s Mac part fix',16),('2016-11-22-01-00','Miscellaneous',110.49,'+',22,'Paycheck',16),('2016-11-22-12-00','Miscellaneous',125.49,'+',15,'Jimmy\'s Mac Reimbursement',16),('2016-11-22-22-30','Miscellaneous',111.72,'-',13.77,'Bar partner surrogate',16),('2016-12-09-12-12','Miscellaneous',122.72,'+',11,'Paycheck',16),('2016-12-22-12-15','Miscellaneous',136.72,'+',14,'Paycheck',16),('2016-12-29-20-00','Miscellaneous',74.72,'-',62,'Splurge',18);
+INSERT INTO `miscellaneousAccount` VALUES ('2016-06-10-12-00','Miscellaneous',27,'+',27,'Paycheck',18),('2016-06-25-12-00','Miscellaneous',40,'+',13,'Paycheck',18),('2016-07-09-12-00','Miscellaneous',47,'+',7,'Paycheck',18),('2016-08-01-12-00','Miscellaneous',54,'+',7,'Paycheck',18),('2016-08-10-12-00','Miscellaneous',76,'+',22,'Paycheck',18),('2016-08-25-12-00','Miscellaneous',106,'+',30,'Paycheck',18),('2016-09-02-01-00','Miscellaneous',124,'+',18,'Paycheck',18),('2016-09-03-13-00','Miscellaneous',12.65,'-',111.35,'Levi Purchase',18),('2016-09-23-12-00','Miscellaneous',39.65,'+',27,'Refund Leftover',18),('2016-09-30-00-00','Miscellaneous',65.65,'+',26,'Paycheck',18),('2016-10-14-18-42','Miscellaneous',197.65,'+',122,'Account Transfer',18),('2016-10-14-00-00','Miscellaneous',75.65,'+',10,'Paycheck',18),('2016-10-15-19-50','Miscellaneous',196.45,'-',1.2,'Movie Snacks',18),('2016-10-15-20-00','Miscellaneous',191.95,'-',4.5,'Movie',16),('2016-10-19-22-30','Miscellaneous',146.95,'-',45,'Goodbye Eric',16),('2016-10-19-22-30','Miscellaneous',137.95,'-',9,'GE Tip',16),('2016-10-28-00-00','Miscellaneous',155.94,'+',18,'Paycheck',16),('2016-10-29-20-00','Miscellaneous',136.94,'-',19,'XC NACC Champs',16),('2016-11-07-18-30','Miscellaneous',90.94,'-',46,'John\'s 21st',16),('2016-11-10-00-00','Miscellaneous',106.94,'+',16,'Paycheck',16),('2016-11-13-11-30','Miscellaneous',99.47,'-',7.47,'Krispy Kreme with friends',16),('2016-11-17-19-00','Miscellaneous',88.49,'-',10.98,'Jimmy\'s Mac part fix',16),('2016-11-22-01-00','Miscellaneous',110.49,'+',22,'Paycheck',16),('2016-11-22-12-00','Miscellaneous',125.49,'+',15,'Jimmy\'s Mac Reimbursement',16),('2016-11-22-22-30','Miscellaneous',111.72,'-',13.77,'Bar partner surrogate',16),('2016-12-09-12-12','Miscellaneous',122.72,'+',11,'Paycheck',16),('2016-12-22-12-15','Miscellaneous',136.72,'+',14,'Paycheck',16),('2016-12-29-20-00','Miscellaneous',74.72,'-',62,'Splurge',18),('2017-03-03-13-32','Miscellaneous',66.35,'-',8.37,'Dirty\'s',18),('2017-03-08-23-49','Miscellaneous',0.539999999999992,'-',65.81,'Stuff',18);
 /*!40000 ALTER TABLE `miscellaneousAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-02-27 12:42:01
+-- Dump completed on 2017-03-08 23:55:57

@@ -20,7 +20,7 @@ public class AccountPercentages
         this.databaseNameToPercent = new HashMap<String, Double>();
         try
         {
-            DatabaseConnection dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+            DatabaseConnection dbsql = new DatabaseConnection();
             dbsql.getAccountList();
 
             Iterator it = dbsql.getAccountListPre().iterator();

@@ -16,19 +16,25 @@ public class DatabaseConnection
 	}
 	public DatabaseConnection(String databaseURL, String username, String password) throws SQLException
 	{
-		hahaha = DriverManager.getConnection(databaseURL, username, password);
+		this.username = username;
+		this.password = password;
+		this.databaseURL = databaseURL;
+		hahaha = DriverManager.getConnection(this.databaseURL, this.username, this.password);
 
 	}
 
-	private Connection hahaha;
+	private static Connection hahaha;
 	private String account;
-	private Statement insertStatement;
+	private static String username;
+	private static String password;
+	private static String databaseURL;
+	private static Statement insertStatement;
 	private Statement listStatement;
 	private ResultSet statementExe;
 	private List<AccountInfo> accountDetails;
 	private Map<String, String> dbTableList = new HashMap<String, String>();
-	private List accountListPre = new ArrayList();
-	private List accountListPost = new ArrayList();
+	private static List accountListPre = new ArrayList();
+	private static List accountListPost = new ArrayList();
 	final private String[] dbTableListValue = {"iPhone", "Personal Emergency", "Family Emergency", "Car", "Investing", "Clothing", "Supplement", "Chess Set", "Running", "Miscellaneous"};
 
 	public void setAccount(String account)
@@ -37,7 +43,6 @@ public class DatabaseConnection
 	}
 	public void setInsertStatement() throws  SQLException
 	{
-		hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 		insertStatement = hahaha.createStatement();
 	}
 	public void setAccountDetails(ArrayList accountDetails)
@@ -113,6 +118,10 @@ public class DatabaseConnection
 	{
 		return dbTableList;
 	}
+	public Connection getConnection()
+	{
+		return hahaha;
+	}
 	public Statement getInsertStatement()
 	{
 		return insertStatement;
@@ -148,7 +157,7 @@ public class DatabaseConnection
 
 		String que = "select * from " + account + " order by Date Desc limit 1";
 		try(
-				Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
+				//Connection hahaha = DriverManager.getConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
 				Statement listStatement = hahaha.createStatement();
 				ResultSet statementExe = listStatement.executeQuery(que);
 		)
@@ -181,13 +190,13 @@ public class DatabaseConnection
 			return balance;
 		}
 	}
-	public void getAccountList()
+	public void getAccountList() throws SQLException
 	{
 		String accountList = "show tables from moneydatabase";
 
 		try(
-				Statement sonStatement = hahaha.createStatement();
-				ResultSet example = sonStatement.executeQuery(accountList);
+				Statement is = hahaha.createStatement();
+				ResultSet example = is.executeQuery(accountList);
 				)
 		{
 			while (example.next())

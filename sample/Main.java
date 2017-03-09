@@ -27,14 +27,14 @@ public class Main extends Application
 	
 	}
 
-	private Scene scn;
+	public static Scene scn;
 
-	public void setScn(BorderPane bp)
+	public static void setScn(BorderPane bp)
 	{
 		scn = new Scene(bp);
 	}
 
-	public Scene getScn()
+	public static Scene getScn()
 	{
 		return scn;
 	}
@@ -42,61 +42,23 @@ public class Main extends Application
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-
 		MoneyManagerControls controls = new MoneyManagerControls();
 
-		String[] accounts = {"iPhone Fund", "Personal Emergency Fund",
-			"Family Emergency Fund", "Car Fund", "Investing Fund",
-			"Clothing Fund", "Supplement Fund", "Chess set Fund", "Running Fund",
-			"Miscellaneous Fund"};
+		System.out.println("Before");
 
-		setScn(controls.getbdp());
-		controls.getbdp().setTop(controls.getmmMenuBar());
-		controls.getbdp().setCenter(controls.bpCenterSetup());
-		controls.setMoneyStuff();
-		controls.getbdp().setBottom(controls.getMoneyStuff());
-
-		/* Switched from the setHeight and setWidth
-		 * methods to the minimum and maximum
-		 * equivalents.
-		 */
-		/**
-		controls.getCheckButton().setOnAction(e ->
-		{
-			AccountData junkInTheTrunk = new AccountData();
-			junkInTheTrunk.setComboColumData();
-
-			DatabaseConnection dbsql;
-
-			try {
-				Main mm = new Main();
-				dbsql = new DatabaseConnection("jdbc:mariadb://localhost:3306/moneydatabase", "mmp", "rootofallevil");
-
-				String key = (String) controls.getAccountDropDown().getValue();
-				String value = junkInTheTrunk.getComboColumData().get(key);
+		controls.loginWindowSetup(primaryStage);
+		
+		System.out.println("After");
 
 
-				dbsql.setAccount( value  );
+		
+		
+		//setScn(controls.getbdp());
+		//controls.getbdp().setTop(controls.getmmMenuBar());
+		//controls.getbdp().setCenter(controls.bpCenterSetup());
+		//controls.setMoneyStuff();
+		//controls.getbdp().setBottom(controls.getMoneyStuff());
 
-				controls.getMoneyStuff().getItems().clear();
-				controls.getMoneyStuff().getItems().addAll(dbsql.getAccountInfo());
-				getbp().setBottom(controls.getMoneyStuff());
-
-			}
-			catch (SQLException s)
-			{
-				s.printStackTrace();
-			}
-
-		});
-		*/
-		primaryStage.setMinHeight(900);
-		primaryStage.setMaxHeight(900);
-		primaryStage.setMinWidth(800);
-		primaryStage.setMaxWidth(800);
-		primaryStage.setTitle("MM");
-		primaryStage.setScene(getScn());
-		primaryStage.show();
 	}
 	public static void main(String[] args)
 	{
