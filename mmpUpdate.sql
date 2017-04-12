@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.22-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: localhost
+-- Host: localhost    Database: moneydatabase
 -- ------------------------------------------------------
--- Server version	10.1.21-MariaDB
+-- Server version	10.1.22-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -123,7 +123,7 @@ CREATE TABLE `investingAccount` (
 
 LOCK TABLES `investingAccount` WRITE;
 /*!40000 ALTER TABLE `investingAccount` DISABLE KEYS */;
-INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck',9),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck',9),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck',9),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck',9),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck',9),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck',9),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck',9),('2016-09-10-14-57','Investing',124.02,'-',19.98,'Book Rental',9),('2016-09-11-11-35','Investing',118.64,'-',5.38,'School Supplies',9),('2016-09-23-12-00','Investing',128.64,'+',10,'Refund Leftover',9),('2016-09-30-00-00','Investing',139.64,'+',11,'Paycheck',10),('2016-10-14-00-00','Investing',144.63,'+',5,'Paycheck',12),('2016-10-28-00-00','Investing',158.63,'+',14,'Paycheck',12),('2016-11-10-00-00','Investing',170.63,'+',12,'Paycheck',12),('2016-11-22-01-00','Investing',187.63,'+',17,'Paycheck',12),('2016-12-09-12-12','Investing',195.63,'+',8,'Paycheck',12),('2016-12-21-20-10','Investing',132.63,'-',63,'Bright Tangled Chain',12),('2016-12-22-12-15','Investing',142.63,'+',10,'Paycheck',12),('2016-12-27-22-30','Investing',122.63,'-',20,'Relief',12),('2017-01-24-8-59','Investing',67.17,'-',55.46,'Chegg',12),('2017-03-03-13-36','Investing',32.3,'-',34.97,'Amazon',12);
+INSERT INTO `investingAccount` VALUES ('2016-06-10-12-00','Investing',74,'+',74,'Paycheck',9),('2016-06-25-12-00','Investing',80,'+',6,'Paycheck',9),('2016-07-09-12-00','Investing',92,'+',12,'Paycheck',9),('2016-08-01-12-00','Investing',104,'+',12,'Paycheck',9),('2016-08-10-12-00','Investing',120,'+',16,'Paycheck',9),('2016-08-25-12-00','Investing',135,'+',15,'Paycheck',9),('2016-09-02-01-00','Investing',144,'+',9,'Paycheck',9),('2016-09-10-14-57','Investing',124.02,'-',19.98,'Book Rental',9),('2016-09-11-11-35','Investing',118.64,'-',5.38,'School Supplies',9),('2016-09-23-12-00','Investing',128.64,'+',10,'Refund Leftover',9),('2016-09-30-00-00','Investing',139.64,'+',11,'Paycheck',10),('2016-10-14-00-00','Investing',144.63,'+',5,'Paycheck',12),('2016-10-28-00-00','Investing',158.63,'+',14,'Paycheck',12),('2016-11-10-00-00','Investing',170.63,'+',12,'Paycheck',12),('2016-11-22-01-00','Investing',187.63,'+',17,'Paycheck',12),('2016-12-09-12-12','Investing',195.63,'+',8,'Paycheck',12),('2016-12-21-20-10','Investing',132.63,'-',63,'Bright Tangled Chain',12),('2016-12-22-12-15','Investing',142.63,'+',10,'Paycheck',12),('2016-12-27-22-30','Investing',122.63,'-',20,'Relief',12),('2017-01-24-8-59','Investing',67.17,'-',55.46,'Chegg',12),('2017-03-03-13-36','Investing',32.3,'-',34.97,'Amazon',12),('2017-04-09-16-09','Investing',22.299999999999997,'-',10,'Stuff',12);
 /*!40000 ALTER TABLE `investingAccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,4 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-08 23:55:57
+-- Dump completed on 2017-04-12 10:00:34
